@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 构造器探究 | Optional Stack</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="其实在其他语言中，比如说Java对于属性的初始化没有严格的要求。甚至在Model层只有对应属性的get,set访问器。而在Swift中无论是对于结构体(Structure)还是类(Class)，如果其中存在存储属性(stored property)，那么必须在合适的地方给它赋初始值，也就是初始化。不能让它们成为不确定的状态，即没有初始化。关于初始化，Swift提供了两种方式。一种是属性定义的时候初">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 构造器探究">
+<meta property="og:url" content="http://www.jinyejun.com/2015/04/30/Swift 构造器探究/index.html">
+<meta property="og:site_name" content="Optional Stack">
+<meta property="og:description" content="其实在其他语言中，比如说Java对于属性的初始化没有严格的要求。甚至在Model层只有对应属性的get,set访问器。而在Swift中无论是对于结构体(Structure)还是类(Class)，如果其中存在存储属性(stored property)，那么必须在合适的地方给它赋初始值，也就是初始化。不能让它们成为不确定的状态，即没有初始化。关于初始化，Swift提供了两种方式。一种是属性定义的时候初">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializerDelegation01_2x.png">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializerDelegation02_2x.png">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/twoPhaseInitialization01_2x.png">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/twoPhaseInitialization02_2x.png">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializersExample02_2x.png">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializersExample03_2x.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 构造器探究">
+<meta name="twitter:description" content="其实在其他语言中，比如说Java对于属性的初始化没有严格的要求。甚至在Model层只有对应属性的get,set访问器。而在Swift中无论是对于结构体(Structure)还是类(Class)，如果其中存在存储属性(stored property)，那么必须在合适的地方给它赋初始值，也就是初始化。不能让它们成为不确定的状态，即没有初始化。关于初始化，Swift提供了两种方式。一种是属性定义的时候初">
+  
+    <link rel="alternative" href="/atom.xml" title="Optional Stack" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img lazy-src="https://avatars0.githubusercontent.com/u/11286317?v=3&amp;s=460" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">YeJun Jim</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Push, Pop, Never Overflow</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/WeefJim" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/p/1005053761334171/home?from=page_100505&mod=TAB#place" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="/app.jinyejun@gmail.com" title="mail">mail</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/app_jinyejun"#"" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://optionalswift.cn">团队博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">ios开发菜鸟一只，求轻虐</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">YeJun Jim</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/11286317?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">YeJun Jim</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Push, Pop, Never Overflow</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/WeefJim" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/p/1005053761334171/home?from=page_100505&mod=TAB#place" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="/app.jinyejun@gmail.com" title="mail">mail</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/app_jinyejun"#"" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Swift 构造器探究" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/30/Swift 构造器探究/" class="article-date">
+  	<time datetime="2015-04-30T11:29:20.000Z" itemprop="datePublished">2015-04-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Swift 构造器探究
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>其实在其他语言中，比如说Java对于属性的初始化没有严格的要求。甚至在Model层只有对应属性的get,set访问器。而在Swift中无论是对于结构体(Structure)还是类(Class)，如果其中存在存储属性(stored property)，那么必须在合适的地方给它赋初始值，也就是初始化。不能让它们成为不确定的状态，即没有初始化。关于初始化，Swift提供了两种方式。一种是属性定义的时候初始化，也就是赋默认值。 第二种是在构造器中初始化。</p>
+<a id="more"></a>
+<h2 id="什么时候要用构造器？">什么时候要用构造器？</h2><h3 id="对于类(Class)">对于类(Class)</h3><p>其实在其他语言中，比如说Java对于属性的初始化没有严格的要求。甚至在Model层只有对应属性的get,set访问器。而在Swift中无论是对于结构体(Structure)还是类(Class)，如果其中存在存储属性(stored property)，那么必须在合适的地方给它赋初始值，也就是初始化。不能让它们成为不确定的状态，即没有初始化。关于初始化，Swift提供了两种方式。一种是属性定义的时候初始化，也就是赋默认值。 第二种是在构造器中初始化。<code>这里做个小结：存储属性必须初始化，初始化的方式且只能在以上两种方式选择，并且至少包含其中一种。</code></p>
+<p>而对于第一种，在Swift中又有两种初始化方式。第一种，是给予明确的值。比如说<code>var name = &quot;Bob&quot;</code>Swift的数据类型推断机制会自动推断出<code>name</code>是一个String类型变量，初始值为<code>Bob</code>。第二种，是Optional类型初始化，通常用在这个属性在程序运行过程中可能存在值也可能不存在值的时候。比如说<code>var avatar: UIImage?</code>一个人可能没有头像。假设<code>avatar</code>是<code>Person</code>类的一个存储属性，程序在运行过程，如果<code>Person</code>类创建一个实例<code>let myPerson = Person()</code>, 如果没有给<code>myPerson.avatar</code>赋值，那么<code>myPerson</code>中<code>avatar</code>属性自动初始化为<code>nil</code>。如果<code>myPerson.avatar = UIImage(named: &quot;prettyGirl&quot;)</code>，那么avatar属性初始化就是<code>UIImage(named: &quot;prettyGirl&quot;)</code>。</p>
+<p>而对于第二种初始化方式，更加具体的说，是如果没有是实现第一种初始化方式的时候，必须实现的。也就是说如果你定义一个属性<code>var avatar: UIImage</code>既没有给予明确的初始值，也没有让它成为Optional类型，那么必须实现在构造器中的初始化。这就是什么时候要用构造器的重点了。<br>然而Swift的构造器又有两种，一种是designated构造器，一种是convenience构造器。所有designated构造器都必须初始化那些没有满足第一种情况的存储属性。<strong><em>注意这里是类中所有的designated构造器都必须要做这件事。具体怎么做请看后文Designated构造器</em></strong></p>
+<h3 id="对于结构体(Structure)">对于结构体(Structure)</h3><p>Swift中结构体和类的构造器其实差不多。除了结构体中没有析构器(Deinitializer)，不能够继承(inherit)以及结构体有memberwise构造器外大体上是一致的。所以你有时候看到一个结构体<code>struct Point</code>有两个存储属性<code>var x: Double</code>, <code>var y: Double</code> ，却没有任何构造器，但是他们既不符合类中讨论的第一种初始化方法（即赋默认值）。那么它们违背了语法规则吗？其实不是的，如果结构体没有自定义的构造器，Swift隐式创建了一个<code>init(x:y:)</code>的构造器其内容就相当于<code>self.x = x, self.y = y</code>。如果你手动给结构体加个空内容的构造器<code>init(){ }</code>，编译器就报<code>Return from initializer without initializing all stored properties</code>的错误。也就是说，如果你创建了你自己定义的构造器，Swift就默默地帮你把memberwise构造器去掉了，而你自己定义的构造器又没有对存储属性初始化，那么这违背了语法规则。但是如果你想同时拥有这两个构造器（memberwise构造器和自定义构造器），你可以把自定义的构造写到<code>Extension Point{ // custom initializer }</code>里面进去。</p>
+<h2 id="构造器的继承">构造器的继承</h2><h3 id="designated构造器">designated构造器</h3><p>designated构造器在Swift中很常见，顾名思义这个构造器就是你类中所有构造器的“原型”。在这个构造器中只调用父类的designated构造器或者不调用其他任何构造器称为designated构造器。每个类都必须至少有一个designated构造器，但是你会看到有些情况看不见类中声明designated构造器，那是因为它是一个子类，如果不写任何designated构造器，将会自动继承父类所有designated构造器。我们将在下面的<code>自动构造器继承</code>中详细讲到。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init</span>(parameters)&#123;</span><br><span class="line">	<span class="comment">// statments</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="convenience构造器">convenience构造器</h3><p>convenience构造器是第二种构造器。它主要是横向代理，就是说在convenience构造器中一定存在也只能存在该类的一个构造器通常用<code>self.init(parameters)</code>调用该类的一个构造器。当然convenience构造器不是必要的。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">convenience <span class="keyword">init</span>(parameters)&#123;</span><br><span class="line">	<span class="comment">// 调用该类中的一个构造器</span></span><br><span class="line">	<span class="keyword">self</span>.<span class="keyword">init</span>(parameters)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// customize properties</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="类的构造器代理规则">类的构造器代理规则</h3><ul>
+<li>规则1：子类中的designated构造器必须调用最近一级父类的desigated构造器</li>
+<li>规则2：convenience构造器必须在同一个类中调用其他一个构造器</li>
+<li>规则3：convenience构造器通过调用链（代理链）调用一个designated构造器</li>
+</ul>
+<p><strong>总结下也就说</strong></p>
+<ul>
+<li>desingated构造器必须一直向上代理（即调用最近一级父类的designated构造器）</li>
+<li>convenience构造器必须横向代理，且代理终点为一个desingated构造器</li>
+</ul>
+<p>下面这幅图（引用自苹果官方文档原图）就表明了这两点<br><img src="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializerDelegation01_2x.png" alt="构造器代理图"><br>SubClass的convenience构造器调用了第二个designated构造器（符合规则2），第二个designated的调用了SuperClass的designated构造器（符合规则1），这表明了convenience构造器最终调用的是designatedg构造器（符合规则3）。同理其他的构造器调用亦是如此</p>
+<p>下面再来一幅图（引用自苹果官方文档原图）<br><img src="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializerDelegation02_2x.png" alt=""></p>
+<h3 id="Two-Phase初始化">Two-Phase初始化</h3><p>第一阶段类中每个存储属性必须有初始值，一旦每个储值属性的初始状态被确定了，第二阶段就开始了。第二阶段就是在新的实例可用之前对初始值的修改阶段。利用两阶段初始化可以让初始化安全，防止属性值在初始化完成之前被访问，以及属性值被另外的构造器设置为不同的值。这和OC差不多，唯一区别就是OC在第一阶段初始的默认值只能是0或者是nil</p>
+<p>初始化有安全检查机制</p>
+<ul>
+<li>安全检查1：一个designated构造器在向上代理之前必须初始化该类中定义的所有存储属性</li>
+<li>安全检查2：一个designated构造器必须先向上代理调用一个父类的构造器，在修改父类的属性值之前。如果不这样，那么你修改的属性值，会被父类的构造器初始化属性的时候覆盖掉。</li>
+<li>安全检查3：一个convenience构造器在对本类任何属性操作之前（包括父类的属性以及本类定义的属性）必须调用另外一个本类中的构造器。如果不是这样，那么修改完的属性很可能就被本类中的构造器初始化属性的时候覆盖了。</li>
+<li>安全检查4：一个构造器不能调用实例方法，读取任何实例属性的值，或者用作为一个值指向<code>self</code>知道第一阶段初始化结束</li>
+</ul>
+<p>初始化两个阶段</p>
+<p>第一阶段：</p>
+<ul>
+<li>一个designated或者convenience构造器在类中被调用</li>
+<li>类的新实例向系统申请内存空间，但是内存还没有被初始化</li>
+<li>该类的一个designated构造器确认所有在该类中定义的存储属性已经被初始化。这些属性的内存被初始化。</li>
+<li>designated的构造器告知父类构造器对父类自己的属性执行相同的操作</li>
+<li>一直代理到类继承链的最高级</li>
+<li>一旦到达类继承链的最高级，并且链上的最终类确认了它所有的存储属性已经初始化完毕，则实例内存被完全初始化，然后第一阶段到此就完成了。</li>
+</ul>
+<p>下面这幅图是第一阶段<br><img src="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/twoPhaseInitialization01_2x.png" alt=""></p>
+<p>第二阶段：</p>
+<ul>
+<li>从继承链的最顶端开始每个designated的构造器可以修改实例中的属性值，此时构造器也可以访问self指针了，可以调用实例方法等等。</li>
+<li>最后在继承链上的任何convenience构造器可以用self指针来修改实例</li>
+</ul>
+<p>下面这幅图是第二阶段<br><img src="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/twoPhaseInitialization02_2x.png" alt=""></p>
+<h3 id="构造器的继承和重写">构造器的继承和重写</h3><p>Swift和绝大多数面向对象的语言不一样，它不会默认继承所有父类的构造器。也就是说你用类初始化实例的时候，只能访问到该子类构造器（除了自动构造器继承的情况）。这是因为防止用父类的构造方法来创建一个比父类多出一些属性的子类。然而如果调用父类构造方法，就不能初始化子类中的存储属性了，这样就违背了Swift的安全机制。</p>
+<p><strong>注意：父类中的构造器在某些特殊情况也会被自动继承，详细内容在后面的自动构造器继承会讲到</strong></p>
+<p>如果你在子类中写了一个构造器，并且它与父类某个designated构造器的名字相同，那么你必须用override关键字修饰init构造器。这里还得注意，就算你父类没有任何显式的构造器（但是Swift会默认给你一个<code>init(){ // 空 }</code>构造器），子类在重写<code>init() { // customize }</code>的时候也是要加修饰词override的，就是这样<code>override init() { // customize }</code>。</p>
+<p><strong>注意：就算你在子类中写的是convenience类型的构造器，如果名字和父类的某个designated构造器，也必须加关键字override修饰。</strong></p>
+<p>还有一种情况就是如果你子类中一个构造器的名字和父类的某个convenience构造器相同，又因为父类中的convenience构造器是没办法被子类直接调用的（这个在上面<code>类的构造器代理规则</code>中讲到过）。因此，严格地说，子类的convenience构造器不提供对父类convenience的重写，也就不需要用override修饰了。这个构造器就相当于新的自定义构造器，不和父类产生任何联系。</p>
+<p>好吧讲了这么多理论估计你们都晕乎乎的，来讲点实际的例子把。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> numberOfWheels = <span class="number">0</span></span><br><span class="line">	<span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"<span class="subst">\(numberOfWheels)</span>wheel(s)"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个基类。<code>numberOfWheels</code>有了默认的初始值，也算是初始化的一种方式。<code>description</code>是一个计算属性，计算属性不需要初始化。虽然看到这个类没有任何的构造器，但是前面提到过默认构造器，就是一个空的构造器<code>init() { //空 }</code> 下面我们来创建一个实例</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> vehicle = <span class="type">Vehicle</span>()</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"Vehicle: <span class="subst">\(vehicle.decription)</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>这个时候控制台打印<code>Vehicle: 0 wheel(s)</code></p>
+<p>下面我们来创建一个子类Bicycle</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bicycle</span>: <span class="title">Vehicle</span></span>&#123;</span><br><span class="line">	<span class="keyword">override</span> <span class="keyword">init</span>()&#123;</span><br><span class="line">		<span class="keyword">super</span>.<span class="keyword">init</span>()</span><br><span class="line">		numberOfWheels = <span class="number">2</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于Bicycle类继承Vehicle类，定义了一个<code>init()</code>designated构造器，这个构造器名字和Vehicle类中的默认构造器相同，因此需要重写<code>override</code>。重写中，首先调用父类的<code>super.init()</code>，然后在修改父类属性的值。这符合Two-Phase初始化规则，在修改父类属性之前，先调用父类的designated的构造器，以保证父类的所有属性被初始化，并且防止修改的值被构造器的初始化过程给覆盖了。</p>
+<p>下面我们来创建Bicycle子类的实例</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bicycle = <span class="type">Bicycle</span>()</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"Bicycle: <span class="subst">\(bicycle.description)</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>控制台打印:<code>Bicycle: 2 wheel(s)</code><br>分析：由于子类修改了父类中的<code>numberOfWhiles</code>属性，因此打印结果是2</p>
+<p><strong>注意：子类可以在合适的位置（具体是什么位置看Two-Phase初始化中介绍）对父类的属性在初始化的时候修改，但是如果属性是常量let声明的，这是不允许的，因为let属性常量一旦被初始化赋值之后，就再也不能改了。</strong></p>
+<h3 id="自动构造器继承">自动构造器继承</h3><p>上面很多地方我们提到了<strong>自动构造器</strong>继承，那么这东西到底是什么呢？一般情况下，子类如果定义了自己的designated的构造器，父类的构造器是不会被继承的。但是，如果子类没有定义任何自己的构造器，那么子类就会继承父类的构造器。<br>假设你给你子类中任何新的属性赋予了默认值，那么一下两条规则将会被适用：</p>
+<ul>
+<li>规则1：如果你的子类没有定义任何designated构造器，那么它会自动继承父类的所有designated构造器。</li>
+<li>规则2：如果你子类提供实现了所有父类的designated的构造器（无论是通过规则1实现的，还是提供自定义手动实现的）都会继承父类所有的convenience构造器。</li>
+</ul>
+<p>即使你在子类中添加了其他convenience构造器，这些规则也是适用的。</p>
+<p><strong>注意上面所说的提供自定义手动实现，也可以包括子类中用convenience构造器覆盖父类的designated构造器。比如说父类有个<code>init(original:)</code>构造器，子类用<code>override convenience init(original:)</code>也是可以使之满足规则2的</strong></p>
+<p>这个是有点抽象，我们来举个例子把<br>先定义一个基类Food</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Food</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">	<span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">		<span class="keyword">self</span>.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	convenience <span class="keyword">init</span>() &#123;</span><br><span class="line">		<span class="keyword">self</span>.name(name: <span class="string">"[Unnamed]"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里<code>init(name:)</code>构造器是Food类的designated构造器，<code>init()</code>构造器是Food类的convenience构造器，里面调用了该类的<code>init(name:)</code>designated构造器</p>
+<p>现在利用designated构造器创建一个实例</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> namedMeat = <span class="type">Food</span>(name: <span class="string">"Bacon"</span>)</span><br></pre></td></tr></table></figure>
+<p>现在创建了一个实例叫<code>namedMeat</code>，它的<code>name</code>属性值为<code>&quot;Bacon&quot;</code>。</p>
+<p>现在利用convenience构造器创建一个实例</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mysteryMeat = <span class="type">Food</span>()</span><br></pre></td></tr></table></figure>
+<p>现在创建了一个实例叫<code>mysteryMeat</code>，它的<code>name</code>属性值为<code>&quot;[Unnamed]&quot;</code>。</p>
+<p>现在我们创建一个RecipeIngredient类，继承Food类</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecipseIngredient</span>: <span class="title">Foof</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> quantity: <span class="type">Int</span></span><br><span class="line">	<span class="keyword">init</span>(name: <span class="type">String</span>, quantity: <span class="type">Int</span>)&#123;</span><br><span class="line">		<span class="keyword">self</span>.quantity = quantity</span><br><span class="line">		<span class="keyword">super</span>.<span class="keyword">init</span>(name: name)</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// customize superclass properties if needed</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">override</span> convenience <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">		<span class="keyword">self</span>.<span class="keyword">init</span>(name: name, quantity: <span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们定义了RecipeIngredient类，它继承了Food类。其中<code>init(name:quantity)</code>是它的designated构造器。<code>init(name:)</code>是convenience构造器，并且是重写了父类(Food类)的<code>init(name:)</code>designated构造器</p>
+<p>构造器继承关系图<br><img src="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializersExample02_2x.png" alt=""></p>
+<p>接下来我会结合Two-Phase初始化机制来讲解这个RecipeIngredient类的初始化过程。</p>
+<p>首先明确的是，RecipeIngredient类只有一个designated构造器叫做init(name: String, quantity: Int)。当这个类初始化实例的时候后，如果使用这个构造器。首先，要满足类的代理规则1，在designated构造器中必须调用最近父类的designated的构造器。但是要先满足安全检查第一个步骤，在调用父类designated构造器之前，必须先初始化改类中定义的所有存储属性。所以对quantity属性进行初始化<code>self.qunatity = qunatity</code>。初始化完成之后，调用父类(Food类)的<code>super.init(name:)</code>构造器进行对父类属性的初始化，由于该例子中Food类已经是构造（代理）链的最上级了，所以在这里停止向上代理。等Food类属性初始化完成之后，返回到RecipeIngredient类中（就是执行完了<code>super.init(name:)</code>），如果你想再对父类属性进行修改，那么可以在这个语句后面自定义修改。这符合安全检查机制3.</p>
+<p>现在我们来用不同的构造器创建几个实例</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> oneMysteryItem = <span class="type">RecipeIngredient</span>()</span><br><span class="line"><span class="keyword">let</span> oneBacon = <span class="type">RecipeIngredient</span>(name: <span class="string">"Bacon"</span>)</span><br><span class="line"><span class="keyword">let</span> sixEggs = <span class="type">RecipeIngredient</span>(name: <span class="string">"Eggs"</span>, quantity: <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p>现在实例<code>oneMysteryItem</code>调用的是<code>init()</code>构造器。但是我们又没有在RecipeIngredient类中看到定义，而且有了designated构造器之后Swift不会给你默认创建<code>init()</code>构造器了。其实<code>init()</code>来自父类Food。因为子类实现了父类所有的designated构造器（即<code>init(name: String)</code>构造器），因此根据自动构造器继承的第二条规则，子类将继承父类的所有convenience构造器，也就是<code>init()</code>构造器。这个<code>init()</code>和内容和父类基本一致，只不过内部的self.init(name:String)调用的是RecipeIngredient类的，而不是父类的。也就是说现在<code>oneMysteryItem</code>的<code>quantity</code>属性值为1，<code>name</code>属性值为<code>“[Unnamed]”</code>。而实例oneBacon调用的是RecipeIngredient的<code>init(name: String)</code>convenience构造器。所以它的<code>name</code>属性的值为<code>&quot;Bacon&quot;</code>，<code>quantity</code>属性的值为<code>1</code>。sixEggs实例调用的是RecipeIngredient的<code>init(name: String, quantity: Int)</code>designated构造器，因此<code>name</code>属性的值为<code>&quot;Eggs&quot;</code>，<code>quantity</code>属性的值为<code>6</code></p>
+<p>再来一个更加特殊的类ShopListItem</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShoppingListItem</span>: <span class="title">RecipeIngredient</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> purchased = <span class="built_in">false</span></span><br><span class="line">	<span class="keyword">var</span> description: <span class="type">String</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> output = <span class="string">"<span class="subst">\(quantity)</span>x <span class="subst">\(name)</span>"</span></span><br><span class="line">		output += purchased ? <span class="string">"√"</span> : <span class="string">"×"</span></span><br><span class="line">		<span class="keyword">return</span> output</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以看到这个类没有任何构造器对<code>purchased</code>的初始化，而是给予了一个默认值<code>false</code>因为一件物品默认是没有购买的。<br>由于它没有提供任何构造器，于是符合自动构造器继承的第一条规则，它将自动继承父类RecipeIngredient的所有designated的构造器，又因为如此，也就说子类是吸纳了父类的所有desigated的构造器，自动构造器继承的第二条规则也将适用，也就是自动继承父类的所有convenience构造器。下面就是整个继承图。</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/initializersExample03_2x.png" alt=""></p>
+<p>现在我们创建个实例数组</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> breakfastList = [</span><br><span class="line">	<span class="type">ShoppingListItem</span>(), </span><br><span class="line">	<span class="type">ShoppingListItem</span>(name: <span class="string">"Bacon"</span>), </span><br><span class="line">	<span class="type">ShoppingListItem</span>(name: <span class="string">"Eggs"</span>, quantity: <span class="number">6</span>)</span><br><span class="line">]</span><br><span class="line">breakfastList[<span class="number">0</span>].name = <span class="string">"Orange juice"</span></span><br><span class="line">breakfastList[<span class="number">0</span>].purchased = <span class="built_in">true</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> breakfastList &#123;</span><br><span class="line">	<span class="built_in">println</span>(item.decription)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制台输出结果</p>
+<p><code>1 x Orange juice √</code></p>
+<p><code>1 x Bacon ×</code></p>
+<p><code>6 x Eggs ×</code></p>
+<p>这里第一个item是ShoppingListItem，它调用的是<code>init()</code>构造器是从Food一直继承下来的，然而在RecipeIngredient层，将它初始化的内容改为了<code>self.init(name: name, quantity: 1)</code>。最终到了ShoppingListItem这个类中，初始化的内容依然是<code>self.init(name: name, quantity: 1)</code>这个，只不过这个self不指向RecipeIngredient，而是指向ShoppingListItem。因此初始化完毕之后第一个item的<code>name</code>属性的值为<code>“Unnamed”</code>，<code>quantity</code>属性的值为<code>1</code>，<code>purchased</code>的属性的值为了<code>false</code>。但是在后来breakfastList[0]把属性<code>name</code>值改为了<code>Orange juice</code>，把<code>purchased</code>的属性的值改为了<code>true</code>。所以最后的<code>decription</code>是<code>1 x Orange juice √</code> 而其他初始化内容应该不难理解，我这里也不再重复叙述了。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/30/A Swift Tour/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          A Swift Tour
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Swift 构造器探究" data-title="Swift 构造器探究" data-url="http://www.jinyejun.com/2015/04/30/Swift 构造器探究/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 YeJun Jim
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
