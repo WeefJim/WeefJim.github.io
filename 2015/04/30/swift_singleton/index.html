@@ -196,7 +196,7 @@
   
     <div class="article-meta">
       <a href="/2015/04/30/swift_singleton/" class="article-date">
-  	<time datetime="2015-04-30T10:59:22.000Z" itemprop="datePublished">2015-04-30</time>
+  	<time datetime="2015-04-30T11:13:16.000Z" itemprop="datePublished">2015-04-30</time>
 </a>
     </div>
   
@@ -250,7 +250,7 @@
 </li>
 </ul>
 <p>接下来我们来验证下，两次访问Singleton.sharedInstance创建的实例是不是同一个。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> instance1 = <span class="type">Singleton</span>.sharedInstance</span><br><span class="line"><span class="keyword">let</span> instance2 = <span class="type">Singleton</span>.sharedInstance</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> instance1 === instance2 &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"instance1 has the same address as instance2"</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">"instance1 doesn't have the same address as instance2"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> instance1 = <span class="type">Singleton</span>.sharedInstance</span><br><span class="line"><span class="keyword">let</span> instance2 = <span class="type">Singleton</span>.sharedInstance</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> instance1 === instance2 &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"instance1 has the same address as instance2"</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"instance1 doesn't have the same address as instance2"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>控制台打印<swift>“instance1 has the same address as instance2”</swift></li>
 </ul>
