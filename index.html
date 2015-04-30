@@ -185,6 +185,92 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-swift_singleton" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/30/swift_singleton/" class="article-date">
+  	<time datetime="2015-04-30T10:50:26.000Z" itemprop="datePublished">2015-04-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/30/swift_singleton/">Swift Singleton Design Pattern</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Swift_Singleton_Design_Pattern">Swift Singleton Design Pattern</h1><h2 id="前言(Preface)">前言(Preface)</h2><p>Swift发展至今经历了3个版本了，从Swift1.0到Swift1.1再到现在的Swift1.2。语法以及API多多少少有些改变，而这些改变也影响了某些设计模式在Swift中的具体实现。今天我主要来讨论下Swift1.1和Swift1.2单例模式的实现。</p>
+<h2 id="要求(Requirements)">要求(Requirements)</h2><ul>
+<li>对Swift基本语法知识已经比较熟悉，并且有些少量的项目经历。</li>
+<li>目前对Swift1.1和Swift1.2变化不太了解</li>
+<li>对设计模式有一定认识和了解</li>
+</ul>
+<h2 id="何谓单例模式(Singleton_Design_Pattern)">何谓单例模式(Singleton Design Pattern)</h2><p>单例模式是设计模式中最简单的形式之一。这一模式的目的是使得类的一个对象成为系统中的唯一实例。要实现这一点，可以从客户端对其进行实例化开始。因此需要用一种只允许生成对象类的唯一实例的机制，“阻止”所有想要生成对象的访问。使用工厂方法来限制实例化过程。这个方法应该是静态方法（类方法），因为让类的实例去生成另一个唯一实例毫无意义。（<a href="http://baike.baidu.com/link?url=tbSzdwHGXiZDPF_PFInOCAJn0XGyC3rbT6B0bL8GU8u3tKMxEQB_ymd-9XFRynQEyIlZwcHF0Ao2s6EeH-Lg_a" target="_blank" rel="external">摘自百度百科</a>）</p>
+<h2 id="常见运用场景(Common_Scenes_Applicated)">常见运用场景(Common Scenes Applicated)</h2><p>iOS开发中的Manager，比如说定位服务管理者(Location Service Manager)。在整个App生命周期中，定位服务管理者只要一个就行，由它来控制定位服务的开启或者关闭状态，不需要其他实例来参与控制。UIApplication.sharedApplication(), 整个App生命周期只有一个App实例。UIScreen.mainScreen()，整个App生命周期中，只有一个屏幕实例。这些都是常见的单例。</p>
+<h2 id="如何在Swift1-1中实现单例(Implemention_In_Swift_1-1)">如何在Swift1.1中实现单例(Implemention In Swift 1.1)</h2><p>谈及Swift1.1，实现单例模式，那个叫鸡肋啊！废话不多说拉，先上代码再来解释。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">var</span> <span class="title">sharedInstance</span>: <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">Static</span> </span>&#123;</span><br><span class="line">            <span class="keyword">static</span> <span class="keyword">let</span> instance: <span class="type">Singleton</span> = <span class="type">Singleton</span>()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Static</span>.instance</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看了以上代码想必你会产生如下疑问</p>
+<ul>
+<li><p>Q: 为什么要嵌套结构体，直接<swift>static let instance: Singleton =  Singleton()</swift>, 然后<swift>returen instance<swift>不行吗?</swift></swift></p>
+<p>A:你会看到报错（static properties may only be declared on a type）, 意思就是说static关键字只能用在值(type)类型的静态变量声明。而我们的Singleton是引用(class)类型的。这就是我们嵌套结构体的原因。因为结构体是值(type)类型的。</p>
+</li>
+<li><p>Q：为什么要用static声明？</p>
+<p>A：static表示的是静态，无论你创建多少，实例总保持一个，就是为了实现单例。而且static会用到懒加载的特性，在你第一次需要这个变量的时候才给你创建。</p>
+</li>
+</ul>
+<ul>
+<li><p>Q：会不会产生线程安全问题？</p>
+<p>A: 首先对线程安全问题，是指在多线程环境下，线程A以及线程B在某一时刻同时访问这个单例，有可能会创建两个单例。Swift的关键字let，就解决了线程安全问题。</p>
+</li>
+</ul>
+<p>接下来我们来验证下，两次访问Singleton.sharedInstance创建的实例是不是同一个。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> instance1 = <span class="type">Singleton</span>.sharedInstance</span><br><span class="line"><span class="keyword">let</span> instance2 = <span class="type">Singleton</span>.sharedInstance</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> instance1 === instance2 &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"instance1 has the same address as instance2"</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="built_in">println</span>(<span class="string">"instance1 doesn't have the same address as instance2"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>控制台打印<swift>“instance1 has the same address as instance2”</swift></li>
+</ul>
+<p>以上代码，instance1和instance2创建了“两次”实例，用 ‘===’ 符号判断的是两个对象的地址是否相同。结果表明，两个实例同一地址，那么结果很显然，就是单例！</p>
+<p>如果你死也不相信线程安全问题（但是已经证明上述例子，不存在线程安全问题），你还可以利用GCD技术中的dispatch_once来控制多线程环境中值调用一次创建实例的代码。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">var</span> <span class="title">sharedInstance</span>: <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">Static</span> </span>&#123;</span><br><span class="line">            <span class="keyword">static</span> <span class="keyword">var</span> onceToken: dispatch_once_t = <span class="number">0</span></span><br><span class="line">            <span class="keyword">static</span> <span class="keyword">var</span> instance: <span class="type">Singleton</span>?</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        dispatch_once(&amp;<span class="type">Static</span>.onceToken)&#123;</span><br><span class="line">            <span class="type">Static</span>.instance = <span class="type">Singleton</span>()</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="type">Static</span>.instance!</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>dispatch_once闭包中的代码，在多线程环境下也只会被执行一次，这样就保证了单例。同样你也可以像第一种方式创建两个实力来验证他们地址相不相等，结果肯定是相等啦~（不信你试试看咯）</p>
+<p>好了，你们看吧，在Swift1.1中实现单例模式是多么的复杂，接下来让我们看看Swift1.2与Swift1.1相比，更新了什么，能够让单例模式轻松实现。</p>
+<h2 id="如何在Swift1-2中实现单例(Implemention_In_Swift_1-2)">如何在Swift1.2中实现单例(Implemention In Swift 1.2)</h2><p>Swift1.2比起Swift1.1来说，其中增加了类中的静态存储变量用static let 关键字修饰，但是变量声明的时候就得赋值，因为类静态变量没有构造器对它初始化。原来class var是只能用于计算属性的，因此就不存在静态存储属性这一说法。现在有了static let，就可以定义类静态变量了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> sharedInstance = <span class="type">Singleton</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如此精简！！！对你没看错，在Swift1.2中就是如此精简。同样你可以用Swift1.1中第一种方式来创建”两个”实例，通过’===’符号，判断下他们地址相同不？结果一定是相等的~</p>
+<h2 id="总结">总结</h2><p>现在实现单例就直接用Swift1.2的那种形式，同样不存在线程安全问题。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-Swift 构造器探究" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
