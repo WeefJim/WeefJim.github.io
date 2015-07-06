@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>UIImage | Optional Stack</title>
+  <title>UIImageView | Optional Stack</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UIImage">
+<meta property="og:title" content="UIImageView">
 <meta property="og:url" content="http://www.jinyejun.com/2015/07/06/UIImageView/index.html">
 <meta property="og:site_name" content="Optional Stack">
 <meta property="og:description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
-<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/LeoXKw6kci*egkEV6uU7sjs5DxAy40LRROaRx2.JytE!/b/dB4AAAAAAAAA&bo=fABxAHwAcQADCi8!&rf=viewer_4">
-<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/33OzEEWpPVit5Z7CW8oT9fSwAbZBFF8kWWcLEzCaVHU!/b/dB4AAAAAAAAA&bo=bgB8AAAAAAADBzA!&rf=viewer_4">
-<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/HiPDkRJbRaUUqPmZznRZecBH26Jf47k*RIBfiXVoj3k!/b/dB4AAAAAAAAA&bo=dAByAAAAAAADByQ!&rf=viewer_4">
-<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/M7QHd8*d9T67iS7LAcjd7tJNCS.zCn*HarZWjUknIKA!/b/dBoBAAAAAAAA&bo=bABjAAAAAAADBy0!&rf=viewer_4">
-<meta property="og:image" content="http://a3.qpic.cn/psb?/V111qmyJ4ATleB/OtNfsb0z5JDzEHI4Gu*QVPVFygx97Qgwf30MPFNx2wg!/b/dAIAAAAAAAAA&bo=cgBoAAAAAAADAD8!&rf=viewer_4">
-<meta property="og:image" content="http://a2.qpic.cn/psb?/V111qmyJ4ATleB/Fu8bh2d.5IQO5ccaZR3LnXP5pn5YeUprDHA*c3pVxrE!/b/dGQAAAAAAAAA&bo=MgFzAQAAAAADB2M!&rf=viewer_4">
-<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/j1kJMckjN61ELlXvNzqC514p9BCNbBUSSnh3oujT2s0!/b/dBoBAAAAAAAA&bo=fwDZAAAAAAADB4Q!&rf=viewer_4">
+<meta property="og:image" content="http://i1.tietuku.com/92b3ed215e4bfe7a.png">
+<meta property="og:image" content="http://i1.tietuku.com/c593253fc49ba93f.png">
+<meta property="og:image" content="http://i1.tietuku.com/9574bf64c30c30b1.png">
+<meta property="og:image" content="http://i1.tietuku.com/024ed7291e44bfec.png">
+<meta property="og:image" content="http://i1.tietuku.com/0389670bf48c2d49.png">
+<meta property="og:image" content="http://i1.tietuku.com/003095999682d8e8.png">
+<meta property="og:image" content="http://i1.tietuku.com/d42c4297ba531794.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UIImage">
+<meta name="twitter:title" content="UIImageView">
 <meta name="twitter:description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
   
     <link rel="alternative" href="/atom.xml" title="Optional Stack" type="application/atom+xml">
@@ -194,7 +194,7 @@
   
     <div class="article-meta">
       <a href="/2015/07/06/UIImageView/" class="article-date">
-  	<time datetime="2015-07-06T11:10:06.000Z" itemprop="datePublished">2015-07-06</time>
+  	<time datetime="2015-07-06T11:23:17.000Z" itemprop="datePublished">2015-07-06</time>
 </a>
     </div>
   
@@ -207,7 +207,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      UIImage
+      UIImageView
     </h1>
   
 
@@ -228,13 +228,13 @@
 <h2 id="Image_&amp;_HighlightedImage">Image &amp; HighlightedImage</h2><p>UIImageView对象中有两个属性。一个是image，它是普通状态下所显示的那张图片，另一个是highlightedImage，它是高亮状态下所显示的图片。<strong>在普通情况下，点击UIImageView，并不是它高亮状态。它的高亮状态在一些特殊情况下，比如说UIImageView放在table view cell里面，点击table view cell的时候，则UIImageView会变成高亮状态</strong></p>
 <h2 id="BackgroundColor_&amp;_Alpha">BackgroundColor &amp; Alpha</h2><p>因为UIImageView也是一个UIView，所以它也有backgroundColor，alpha这些属性。如果image的有些区域是透明的(transparency)，那么UIImageView也会按照透明来显示。因此，UIImageView会显示各种不同形状的图片。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> earch = <span class="type">UIImage</span>(named: <span class="string">"earch"</span>)!</span><br><span class="line"><span class="keyword">let</span> imageView = <span class="type">UIImageView</span>(image: earch)</span><br></pre></td></tr></table></figure>
-<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/LeoXKw6kci*egkEV6uU7sjs5DxAy40LRROaRx2.JytE!/b/dB4AAAAAAAAA&amp;bo=fABxAHwAcQADCi8!&amp;rf=viewer_4" alt="无背景地球"></p>
+<p><img src="http://i1.tietuku.com/92b3ed215e4bfe7a.png" alt="无背景地球"></p>
 <p>但是UIImageView是矩形形状的。如果给UIImageView的backgrounColor属性赋值红色.</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.backgroundColor = <span class="type">UIColor</span>.redColor()</span><br></pre></td></tr></table></figure>
-<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/33OzEEWpPVit5Z7CW8oT9fSwAbZBFF8kWWcLEzCaVHU!/b/dB4AAAAAAAAA&amp;bo=bgB8AAAAAAADBzA!&amp;rf=viewer_4" alt="红色背景地球"></p>
+<p><img src="http://i1.tietuku.com/c593253fc49ba93f.png" alt="红色背景地球"></p>
 <p>同样也可以修改它的alpha值来实现半透明效果</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.alpha = <span class="number">0.4</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/HiPDkRJbRaUUqPmZznRZecBH26Jf47k*RIBfiXVoj3k!/b/dB4AAAAAAAAA&amp;bo=dAByAAAAAAADByQ!&amp;rf=viewer_4" alt="半透明地球"></p>
+<p><img src="http://i1.tietuku.com/9574bf64c30c30b1.png" alt="半透明地球"></p>
 <p>UIImageView如果既没有image，也没给它的backgroundColor赋值。那么它将是不可见的。如果你要替换某张图片，只需改变它的image属性，UIImageView自动会刷新图片的。同理，如果你想移除这张图片，那么只需要将image属性赋值为nil即可。</p>
 <h2 id="ContentMode">ContentMode</h2><p>大家是否有想过，既然UIImageView也是一个UIView，那么我们按照通常的思路是给UIImageView一个frame(先不考虑autoLayout的情况下)来确定它在屏幕上的显示位置和大小。那么，如果image大小比frame大或者小，UIImageView该采取什么策略来显示？缩放？裁剪？</p>
 <p>既然存在分歧，那么UIImageView提供一个contentMode属性，来让用户决定用什么策略来显示当image过大或者过小的情况。contentMode是一个UIViewContentMode枚举类型，其定义与声明如下</p>
@@ -260,13 +260,24 @@
 <h2 id="ClipsToBounds">ClipsToBounds</h2><p>这个属性是指当image内容超过UIImageView边界的时候，是否进行裁剪显示。如果true，那么UIImageView只会显示image在其内的部分，其余部分不显示。如果为false，那么UIImageView会显示全部内容，包括超出边界的部分，但是它的Frame还是UIImageView的frame，并不会变大。其默认值为false。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为了不让image缩放来适应imageView，contentMode采用Center模式</span></span><br><span class="line">imageView.contentMode = .<span class="type">Center</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 固定imageView的frame</span></span><br><span class="line">imageView.frame = <span class="type">CGRectMake</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为了看出UIImageView的frame大小，加个背景色</span></span><br><span class="line">imageView.backgroundColor = <span class="type">UIColor</span>.redColor()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 超出边界剪裁</span></span><br><span class="line">imageView.clipsToBounds = <span class="built_in">true</span></span><br></pre></td></tr></table></figure>
 <p>如图红色部分为UIImageView的frame大小</p>
-<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/M7QHd8*d9T67iS7LAcjd7tJNCS.zCn*HarZWjUknIKA!/b/dBoBAAAAAAAA&amp;bo=bABjAAAAAAADBy0!&amp;rf=viewer_4" alt="剪裁显示"></p>
+<p><img src="http://i1.tietuku.com/024ed7291e44bfec.png" alt="剪裁显示"></p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 超出边界不剪裁</span></span><br><span class="line">imageView.clipsToBounds = <span class="built_in">false</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://a3.qpic.cn/psb?/V111qmyJ4ATleB/OtNfsb0z5JDzEHI4Gu*QVPVFygx97Qgwf30MPFNx2wg!/b/dAIAAAAAAAAA&amp;bo=cgBoAAAAAAADAD8!&amp;rf=viewer_4" alt="不剪裁显示"></p>
-<h2 id="Resizable_Images">Resizable Images</h2><p>UIImage对象可以使用<figure class="highlight"><figcaption><span>image对象。capInsets参数，是一个UIEdgeInsets结构体，由top，left，bottom，right四个CGFloat值组成。他们代表的是在image中距离上边界，左边界，下边界，右边界各个距离，在内部画一个矩形，矩形之内为圈定的内容。resizingMode参数，是一个UIImageResizingMode枚举类型的参数。有两个值，一个是.Tile，即平铺。另一个.Stretch，即拉伸。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#10;```Swift&#10;// &#24179;&#38138;&#10;let imageViewTile = UIImageView()&#10;imageViewTile.frame = CGRectMake(10, 10, 200, 100)&#10;let earchTile = earch.resizableImageWithCapInsets(UIEdgeInsets(top: earch.size.width/4.0, left: earch.size.width/4.0, bottom: earch.size.width/4.0, right: earch.size.width/4.0), resizingMode: .Tile)&#10;imageViewTile.image = earchTile&#10;self.view.addSubview(imageViewTile)&#10;        &#10;// &#25289;&#20280;&#10;let imageViewStretch = UIImageView()&#10;imageViewStretch.frame = CGRectMake(10, 120, 200, 100)&#10;let earchStretch = earch.resizableImageWithCapInsets(UIEdgeInsets(top: earch.size.width/4.0, left: earch.size.width/4.0, bottom: earch.size.width/4.0, right: earch.size.width/4.0), resizingMode: .Stretch)&#10;imageViewStretch.image = earchStretch&#10;self.view.addSubview(imageViewStretch)</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://a2.qpic.cn/psb?/V111qmyJ4ATleB/Fu8bh2d.5IQO5ccaZR3LnXP5pn5YeUprDHA*c3pVxrE!/b/dGQAAAAAAAAA&amp;bo=MgFzAQAAAAADB2M!&amp;rf=viewer_4" alt="平铺和伸缩效果对比"></p>
-<h2 id="Image_Rendernig_Mode">Image Rendernig Mode</h2><p>在iOS中有许多地方，比如说tab bar, navigation bar处。系统把image看成一种透明蒙版(transparency mask)，或者说是一种模板(template)。系统并不区别image的各种颜色，只有着色和透明之分。利用bar的tintColor给image原本有着色部分着色。而透明的部分不着色。这样的image可以利用UIImage的<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;- .Automatic(&#40664;&#35748;)&#10;- .AlwaysOriginal&#10;- .AlwaysTemplate&#10;&#10;Automatic&#26159;&#40664;&#35748;&#20540;&#65292;&#23427;&#24847;&#21619;&#30528;&#24403;image&#38500;&#20102;&#22312;&#19968;&#20123;&#29992;&#20102;&#36879;&#26126;&#33945;&#29256;&#30340;&#29305;&#23450;&#30340;&#22330;&#21512;&#65292;&#25165;&#20250;&#26159;template&#27169;&#24335;&#65292;&#21542;&#21017;&#37117;&#26159;&#25353;&#29031;&#22270;&#29255;&#21407;&#26469;&#39068;&#33394;&#32472;&#21046;&#12290;&#10;&#10;AlwaysOriginal&#34920;&#31034;&#23427;&#26080;&#35770;&#22312;&#20160;&#20040;&#22330;&#21512;&#37117;&#26159;&#25353;&#29031;&#22270;&#29255;&#21407;&#26469;&#39068;&#33394;&#32472;&#21046;&#10;&#10;AlwaysTemplate&#34920;&#31034;&#23427;&#26080;&#35770;&#22312;&#20160;&#20040;&#22330;&#21512;&#37117;&#25353;&#29031;template&#27169;&#24335;&#26469;&#32472;&#21046;&#12290;&#10;&#10;imageRenderMode&#26159;template&#30340;&#26102;&#20505;&#65292;image&#30528;&#33394;&#37096;&#20998;&#30340;&#32472;&#21046;&#39068;&#33394;&#65292;&#21462;&#20915;&#20110;&#23427;&#30340;tintColor&#12290;&#32780;tintColor&#40664;&#35748;&#26159;&#31995;&#32479;&#34013;&#33394;&#65292;&#24182;&#19988;&#20855;&#26377;&#32487;&#25215;&#26426;&#21046;&#12290;&#23376;&#35270;&#22270;&#30340;tintColor&#30340;&#20250;&#32487;&#25215;&#29238;&#35270;&#22270;&#30340;tintColor&#12290;&#20197;&#19979;&#26159;&#37319;&#29992;original&#27169;&#24335;&#21644;template&#27169;&#24335;&#30340;&#22270;&#10;&#10;&#10;```Swift&#10;let icon = UIImage(named: &#34;icon&#34;)!&#10;let iconOriginal = icon.imageWithRenderingMode(.AlwaysOriginal)&#10;let iconTemplate = icon.imageWithRenderingMode(.AlwaysTemplate)&#10;        &#10;let imageViewOriginal = UIImageView(image: iconOriginal)&#10;let imageViewTemplate = UIImageView(image: iconTemplate)&#10;        &#10;imageViewTemplate.tintColor = UIColor.redColor()&#10;        &#10;imageViewOriginal.center = CGPointMake(100, 200)&#10;imageViewTemplate.center = CGPointMake(100, 300)&#10;        &#10;self.view.addSubview(imageViewOriginal)&#10;self.view.addSubview(imageViewTemplate)</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/j1kJMckjN61ELlXvNzqC514p9BCNbBUSSnh3oujT2s0!/b/dBoBAAAAAAAA&amp;bo=fwDZAAAAAAADB4Q!&amp;rf=viewer_4" alt="original和template对比"></p>
+<p><img src="http://i1.tietuku.com/0389670bf48c2d49.png" alt="不剪裁显示"></p>
+<h2 id="Resizable_Images">Resizable Images</h2><p>UIImage对象可以使用resizableImageWithCapInsets:resizingMode:方法来生成一个resizable image对象。capInsets参数，是一个UIEdgeInsets结构体，由top，left，bottom，right四个CGFloat值组成。他们代表的是在image中距离上边界，左边界，下边界，右边界各个距离，在内部画一个矩形，矩形之内为圈定的内容。resizingMode参数，是一个UIImageResizingMode枚举类型的参数。有两个值，一个是.Tile，即平铺。另一个.Stretch，即拉伸。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 平铺</span></span><br><span class="line"><span class="keyword">let</span> imageViewTile = <span class="type">UIImageView</span>()</span><br><span class="line">imageViewTile.frame = <span class="type">CGRectMake</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">200</span>, <span class="number">100</span>)</span><br><span class="line"><span class="keyword">let</span> earchTile = earch.resizableImageWithCapInsets(<span class="type">UIEdgeInsets</span>(top: earch.size.width/<span class="number">4.0</span>, <span class="keyword">left</span>: earch.size.width/<span class="number">4.0</span>, bottom: earch.size.width/<span class="number">4.0</span>, <span class="keyword">right</span>: earch.size.width/<span class="number">4.0</span>), resizingMode: .<span class="type">Tile</span>)</span><br><span class="line">imageViewTile.image = earchTile</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewTile)</span><br><span class="line">        </span><br><span class="line"><span class="comment">// 拉伸</span></span><br><span class="line"><span class="keyword">let</span> imageViewStretch = <span class="type">UIImageView</span>()</span><br><span class="line">imageViewStretch.frame = <span class="type">CGRectMake</span>(<span class="number">10</span>, <span class="number">120</span>, <span class="number">200</span>, <span class="number">100</span>)</span><br><span class="line"><span class="keyword">let</span> earchStretch = earch.resizableImageWithCapInsets(<span class="type">UIEdgeInsets</span>(top: earch.size.width/<span class="number">4.0</span>, <span class="keyword">left</span>: earch.size.width/<span class="number">4.0</span>, bottom: earch.size.width/<span class="number">4.0</span>, <span class="keyword">right</span>: earch.size.width/<span class="number">4.0</span>), resizingMode: .<span class="type">Stretch</span>)</span><br><span class="line">imageViewStretch.image = earchStretch</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewStretch)</span><br></pre></td></tr></table></figure>
+<p><img src="http://i1.tietuku.com/003095999682d8e8.png" alt="平铺和伸缩效果对比"></p>
+<h2 id="Image_Rendernig_Mode">Image Rendernig Mode</h2><p>在iOS中有许多地方，比如说tab bar, navigation bar处。系统把image看成一种透明蒙版(transparency mask)，或者说是一种模板(template)。系统并不区别image的各种颜色，只有着色和透明之分。利用bar的tintColor给image原本有着色部分着色。而透明的部分不着色。这样的image可以利用UIImage的<code>imageWithRenderingMode:</code>方法来产生。其构造参数为UIImageRenderingMode枚举类型，有三个枚举值。</p>
+<ul>
+<li>.Automatic(默认)</li>
+<li>.AlwaysOriginal</li>
+<li>.AlwaysTemplate</li>
+</ul>
+<p>Automatic是默认值，它意味着当image除了在一些用了透明蒙版的特定的场合，才会是template模式，否则都是按照图片原来颜色绘制。</p>
+<p>AlwaysOriginal表示它无论在什么场合都是按照图片原来颜色绘制</p>
+<p>AlwaysTemplate表示它无论在什么场合都按照template模式来绘制。</p>
+<p>imageRenderMode是template的时候，image着色部分的绘制颜色，取决于它的tintColor。而tintColor默认是系统蓝色，并且具有继承机制。子视图的tintColor的会继承父视图的tintColor。以下是采用original模式和template模式的图</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> icon = <span class="type">UIImage</span>(named: <span class="string">"icon"</span>)!</span><br><span class="line"><span class="keyword">let</span> iconOriginal = icon.imageWithRenderingMode(.<span class="type">AlwaysOriginal</span>)</span><br><span class="line"><span class="keyword">let</span> iconTemplate = icon.imageWithRenderingMode(.<span class="type">AlwaysTemplate</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">let</span> imageViewOriginal = <span class="type">UIImageView</span>(image: iconOriginal)</span><br><span class="line"><span class="keyword">let</span> imageViewTemplate = <span class="type">UIImageView</span>(image: iconTemplate)</span><br><span class="line">        </span><br><span class="line">imageViewTemplate.tintColor = <span class="type">UIColor</span>.redColor()</span><br><span class="line">        </span><br><span class="line">imageViewOriginal.center = <span class="type">CGPointMake</span>(<span class="number">100</span>, <span class="number">200</span>)</span><br><span class="line">imageViewTemplate.center = <span class="type">CGPointMake</span>(<span class="number">100</span>, <span class="number">300</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewOriginal)</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewTemplate)</span><br></pre></td></tr></table></figure>
+<p><img src="http://i1.tietuku.com/d42c4297ba531794.png" alt="original和template对比"></p>
 
       
     </div>
@@ -307,7 +318,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="UIImageView" data-title="UIImage" data-url="http://www.jinyejun.com/2015/07/06/UIImageView/"></div>
+	<div class="ds-thread" data-thread-key="UIImageView" data-title="UIImageView" data-url="http://www.jinyejun.com/2015/07/06/UIImageView/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
