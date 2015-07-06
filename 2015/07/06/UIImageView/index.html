@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>UIImage | Optional Stack</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIImage">
+<meta property="og:url" content="http://www.jinyejun.com/2015/07/06/UIImageView/index.html">
+<meta property="og:site_name" content="Optional Stack">
+<meta property="og:description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/LeoXKw6kci*egkEV6uU7sjs5DxAy40LRROaRx2.JytE!/b/dB4AAAAAAAAA&bo=fABxAHwAcQADCi8!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/33OzEEWpPVit5Z7CW8oT9fSwAbZBFF8kWWcLEzCaVHU!/b/dB4AAAAAAAAA&bo=bgB8AAAAAAADBzA!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/HiPDkRJbRaUUqPmZznRZecBH26Jf47k*RIBfiXVoj3k!/b/dB4AAAAAAAAA&bo=dAByAAAAAAADByQ!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/M7QHd8*d9T67iS7LAcjd7tJNCS.zCn*HarZWjUknIKA!/b/dBoBAAAAAAAA&bo=bABjAAAAAAADBy0!&rf=viewer_4">
+<meta property="og:image" content="http://a3.qpic.cn/psb?/V111qmyJ4ATleB/OtNfsb0z5JDzEHI4Gu*QVPVFygx97Qgwf30MPFNx2wg!/b/dAIAAAAAAAAA&bo=cgBoAAAAAAADAD8!&rf=viewer_4">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V111qmyJ4ATleB/Fu8bh2d.5IQO5ccaZR3LnXP5pn5YeUprDHA*c3pVxrE!/b/dGQAAAAAAAAA&bo=MgFzAQAAAAADB2M!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/j1kJMckjN61ELlXvNzqC514p9BCNbBUSSnh3oujT2s0!/b/dBoBAAAAAAAA&bo=fwDZAAAAAAADB4Q!&rf=viewer_4">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UIImage">
+<meta name="twitter:description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
+  
+    <link rel="alternative" href="/atom.xml" title="Optional Stack" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img lazy-src="https://avatars0.githubusercontent.com/u/11286317?v=3&amp;s=460" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">YeJun Jim</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Push, Pop, Never Overflow</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/WeefJim" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/p/1005053761334171/home?from=page_100505&mod=TAB#place" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="/app.jinyejun@gmail.com" title="mail">mail</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/app_jinyejun"#"" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://optionalswift.cn">团队博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">ios开发菜鸟一只，求轻虐</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">YeJun Jim</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/11286317?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">YeJun Jim</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Push, Pop, Never Overflow</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/WeefJim" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/p/1005053761334171/home?from=page_100505&mod=TAB#place" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="/app.jinyejun@gmail.com" title="mail">mail</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/app_jinyejun"#"" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-UIImageView" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/06/UIImageView/" class="article-date">
+  	<time datetime="2015-07-06T11:10:06.000Z" itemprop="datePublished">2015-07-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      UIImage
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction">Introduction</h2><p>UIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。<br><a id="more"></a></p>
+<h2 id="Frame">Frame</h2><p>UIImageView的与普通UIView不同的一点是如果不给UIImageView指定frame或者在autoLayout下给予绝对高度和绝对宽度，那么它的frame.size是根据image来计算的。这个属性叫做intrinsicContentSize，就是固有内容大小。如果用一个矩形能容纳下image，这么这个矩形的大小就是UIImageView的frame.size。</p>
+<h2 id="Image_&amp;_HighlightedImage">Image &amp; HighlightedImage</h2><p>UIImageView对象中有两个属性。一个是image，它是普通状态下所显示的那张图片，另一个是highlightedImage，它是高亮状态下所显示的图片。<strong>在普通情况下，点击UIImageView，并不是它高亮状态。它的高亮状态在一些特殊情况下，比如说UIImageView放在table view cell里面，点击table view cell的时候，则UIImageView会变成高亮状态</strong></p>
+<h2 id="BackgroundColor_&amp;_Alpha">BackgroundColor &amp; Alpha</h2><p>因为UIImageView也是一个UIView，所以它也有backgroundColor，alpha这些属性。如果image的有些区域是透明的(transparency)，那么UIImageView也会按照透明来显示。因此，UIImageView会显示各种不同形状的图片。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> earch = <span class="type">UIImage</span>(named: <span class="string">"earch"</span>)!</span><br><span class="line"><span class="keyword">let</span> imageView = <span class="type">UIImageView</span>(image: earch)</span><br></pre></td></tr></table></figure>
+<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/LeoXKw6kci*egkEV6uU7sjs5DxAy40LRROaRx2.JytE!/b/dB4AAAAAAAAA&amp;bo=fABxAHwAcQADCi8!&amp;rf=viewer_4" alt="无背景地球"></p>
+<p>但是UIImageView是矩形形状的。如果给UIImageView的backgrounColor属性赋值红色.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.backgroundColor = <span class="type">UIColor</span>.redColor()</span><br></pre></td></tr></table></figure>
+<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/33OzEEWpPVit5Z7CW8oT9fSwAbZBFF8kWWcLEzCaVHU!/b/dB4AAAAAAAAA&amp;bo=bgB8AAAAAAADBzA!&amp;rf=viewer_4" alt="红色背景地球"></p>
+<p>同样也可以修改它的alpha值来实现半透明效果</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.alpha = <span class="number">0.4</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/HiPDkRJbRaUUqPmZznRZecBH26Jf47k*RIBfiXVoj3k!/b/dB4AAAAAAAAA&amp;bo=dAByAAAAAAADByQ!&amp;rf=viewer_4" alt="半透明地球"></p>
+<p>UIImageView如果既没有image，也没给它的backgroundColor赋值。那么它将是不可见的。如果你要替换某张图片，只需改变它的image属性，UIImageView自动会刷新图片的。同理，如果你想移除这张图片，那么只需要将image属性赋值为nil即可。</p>
+<h2 id="ContentMode">ContentMode</h2><p>大家是否有想过，既然UIImageView也是一个UIView，那么我们按照通常的思路是给UIImageView一个frame(先不考虑autoLayout的情况下)来确定它在屏幕上的显示位置和大小。那么，如果image大小比frame大或者小，UIImageView该采取什么策略来显示？缩放？裁剪？</p>
+<p>既然存在分歧，那么UIImageView提供一个contentMode属性，来让用户决定用什么策略来显示当image过大或者过小的情况。contentMode是一个UIViewContentMode枚举类型，其定义与声明如下</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">UIViewContentMode</span> : <span class="title">Int</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">case</span> <span class="type">ScaleToFill</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">ScaleAspectFit</span> <span class="comment">// contents scaled to fit with fixed aspect. remainder is transparent</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">ScaleAspectFill</span> <span class="comment">// contents scaled to fill with fixed aspect. some portion of content may be clipped.</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Redraw</span> <span class="comment">// redraw on bounds change (calls -setNeedsDisplay)</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Center</span> <span class="comment">// contents remain same size. positioned adjusted.</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Top</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Bottom</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Left</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Right</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">TopLeft</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">TopRight</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">BottomLeft</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">BottomRight</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>ScaleToFill (默认)</p>
+<p>  表示image根据imageView大小根据相应比例缩放以填充满整个imageView的frame</p>
+</li>
+<li><p>ScaleAspectFit</p>
+<p>  表示image根据给定的一个比例(aspect)来调整image在UIImageView的中的显示，但是不一定填充满，剩余部分会是透明的</p>
+</li>
+<li><p>ScaleAspectFill</p>
+<p>  表示image根据给定的一个比例(aspect)来调整image在UIImageView的中的显示，但是会填充满，存在某些部分超出UIImageView大小，会被裁剪。</p>
+</li>
+<li><p>Redraw</p>
+<p>  表示image会重新绘制，当UIImageView调用setNeedDisplay方法的时候。</p>
+</li>
+<li><p>Center</p>
+<p>  表示不改变image的大小，将image置于UIImageView的中心。</p>
+</li>
+</ul>
+<p>其他属性不常用，不做解释，其原理和Center差不多，只不过是位置的差别。</p>
+<h2 id="ClipsToBounds">ClipsToBounds</h2><p>这个属性是指当image内容超过UIImageView边界的时候，是否进行裁剪显示。如果true，那么UIImageView只会显示image在其内的部分，其余部分不显示。如果为false，那么UIImageView会显示全部内容，包括超出边界的部分，但是它的Frame还是UIImageView的frame，并不会变大。其默认值为false。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为了不让image缩放来适应imageView，contentMode采用Center模式</span></span><br><span class="line">imageView.contentMode = .<span class="type">Center</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 固定imageView的frame</span></span><br><span class="line">imageView.frame = <span class="type">CGRectMake</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为了看出UIImageView的frame大小，加个背景色</span></span><br><span class="line">imageView.backgroundColor = <span class="type">UIColor</span>.redColor()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 超出边界剪裁</span></span><br><span class="line">imageView.clipsToBounds = <span class="built_in">true</span></span><br></pre></td></tr></table></figure>
+<p>如图红色部分为UIImageView的frame大小</p>
+<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/M7QHd8*d9T67iS7LAcjd7tJNCS.zCn*HarZWjUknIKA!/b/dBoBAAAAAAAA&amp;bo=bABjAAAAAAADBy0!&amp;rf=viewer_4" alt="剪裁显示"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 超出边界不剪裁</span></span><br><span class="line">imageView.clipsToBounds = <span class="built_in">false</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://a3.qpic.cn/psb?/V111qmyJ4ATleB/OtNfsb0z5JDzEHI4Gu*QVPVFygx97Qgwf30MPFNx2wg!/b/dAIAAAAAAAAA&amp;bo=cgBoAAAAAAADAD8!&amp;rf=viewer_4" alt="不剪裁显示"></p>
+<h2 id="Resizable_Images">Resizable Images</h2><p>UIImage对象可以使用<figure class="highlight"><figcaption><span>image对象。capInsets参数，是一个UIEdgeInsets结构体，由top，left，bottom，right四个CGFloat值组成。他们代表的是在image中距离上边界，左边界，下边界，右边界各个距离，在内部画一个矩形，矩形之内为圈定的内容。resizingMode参数，是一个UIImageResizingMode枚举类型的参数。有两个值，一个是.Tile，即平铺。另一个.Stretch，即拉伸。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#10;```Swift&#10;// &#24179;&#38138;&#10;let imageViewTile = UIImageView()&#10;imageViewTile.frame = CGRectMake(10, 10, 200, 100)&#10;let earchTile = earch.resizableImageWithCapInsets(UIEdgeInsets(top: earch.size.width/4.0, left: earch.size.width/4.0, bottom: earch.size.width/4.0, right: earch.size.width/4.0), resizingMode: .Tile)&#10;imageViewTile.image = earchTile&#10;self.view.addSubview(imageViewTile)&#10;        &#10;// &#25289;&#20280;&#10;let imageViewStretch = UIImageView()&#10;imageViewStretch.frame = CGRectMake(10, 120, 200, 100)&#10;let earchStretch = earch.resizableImageWithCapInsets(UIEdgeInsets(top: earch.size.width/4.0, left: earch.size.width/4.0, bottom: earch.size.width/4.0, right: earch.size.width/4.0), resizingMode: .Stretch)&#10;imageViewStretch.image = earchStretch&#10;self.view.addSubview(imageViewStretch)</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://a2.qpic.cn/psb?/V111qmyJ4ATleB/Fu8bh2d.5IQO5ccaZR3LnXP5pn5YeUprDHA*c3pVxrE!/b/dGQAAAAAAAAA&amp;bo=MgFzAQAAAAADB2M!&amp;rf=viewer_4" alt="平铺和伸缩效果对比"></p>
+<h2 id="Image_Rendernig_Mode">Image Rendernig Mode</h2><p>在iOS中有许多地方，比如说tab bar, navigation bar处。系统把image看成一种透明蒙版(transparency mask)，或者说是一种模板(template)。系统并不区别image的各种颜色，只有着色和透明之分。利用bar的tintColor给image原本有着色部分着色。而透明的部分不着色。这样的image可以利用UIImage的<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;- .Automatic(&#40664;&#35748;)&#10;- .AlwaysOriginal&#10;- .AlwaysTemplate&#10;&#10;Automatic&#26159;&#40664;&#35748;&#20540;&#65292;&#23427;&#24847;&#21619;&#30528;&#24403;image&#38500;&#20102;&#22312;&#19968;&#20123;&#29992;&#20102;&#36879;&#26126;&#33945;&#29256;&#30340;&#29305;&#23450;&#30340;&#22330;&#21512;&#65292;&#25165;&#20250;&#26159;template&#27169;&#24335;&#65292;&#21542;&#21017;&#37117;&#26159;&#25353;&#29031;&#22270;&#29255;&#21407;&#26469;&#39068;&#33394;&#32472;&#21046;&#12290;&#10;&#10;AlwaysOriginal&#34920;&#31034;&#23427;&#26080;&#35770;&#22312;&#20160;&#20040;&#22330;&#21512;&#37117;&#26159;&#25353;&#29031;&#22270;&#29255;&#21407;&#26469;&#39068;&#33394;&#32472;&#21046;&#10;&#10;AlwaysTemplate&#34920;&#31034;&#23427;&#26080;&#35770;&#22312;&#20160;&#20040;&#22330;&#21512;&#37117;&#25353;&#29031;template&#27169;&#24335;&#26469;&#32472;&#21046;&#12290;&#10;&#10;imageRenderMode&#26159;template&#30340;&#26102;&#20505;&#65292;image&#30528;&#33394;&#37096;&#20998;&#30340;&#32472;&#21046;&#39068;&#33394;&#65292;&#21462;&#20915;&#20110;&#23427;&#30340;tintColor&#12290;&#32780;tintColor&#40664;&#35748;&#26159;&#31995;&#32479;&#34013;&#33394;&#65292;&#24182;&#19988;&#20855;&#26377;&#32487;&#25215;&#26426;&#21046;&#12290;&#23376;&#35270;&#22270;&#30340;tintColor&#30340;&#20250;&#32487;&#25215;&#29238;&#35270;&#22270;&#30340;tintColor&#12290;&#20197;&#19979;&#26159;&#37319;&#29992;original&#27169;&#24335;&#21644;template&#27169;&#24335;&#30340;&#22270;&#10;&#10;&#10;```Swift&#10;let icon = UIImage(named: &#34;icon&#34;)!&#10;let iconOriginal = icon.imageWithRenderingMode(.AlwaysOriginal)&#10;let iconTemplate = icon.imageWithRenderingMode(.AlwaysTemplate)&#10;        &#10;let imageViewOriginal = UIImageView(image: iconOriginal)&#10;let imageViewTemplate = UIImageView(image: iconTemplate)&#10;        &#10;imageViewTemplate.tintColor = UIColor.redColor()&#10;        &#10;imageViewOriginal.center = CGPointMake(100, 200)&#10;imageViewTemplate.center = CGPointMake(100, 300)&#10;        &#10;self.view.addSubview(imageViewOriginal)&#10;self.view.addSubview(imageViewTemplate)</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://a1.qpic.cn/psb?/V111qmyJ4ATleB/j1kJMckjN61ELlXvNzqC514p9BCNbBUSSnh3oujT2s0!/b/dBoBAAAAAAAA&amp;bo=fwDZAAAAAAADB4Q!&amp;rf=viewer_4" alt="original和template对比"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/04/30/swift_singleton/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Swift Singleton Design Pattern</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="UIImageView" data-title="UIImage" data-url="http://www.jinyejun.com/2015/07/06/UIImageView/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 YeJun Jim
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
