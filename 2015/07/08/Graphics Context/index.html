@@ -5,21 +5,15 @@
   
   <title>Graphics Context | Optional Stack</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具
-&amp;lt;!—-more—&amp;gt;
-如何获取图形上下文以下我会介绍三种获取图形上下文的方法： ①利用UIGraphicsBeginImageContextWithOptions来申请图形上下文，利用">
+  <meta name="description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graphics Context">
 <meta property="og:url" content="http://www.jinyejun.com/2015/07/08/Graphics Context/index.html">
 <meta property="og:site_name" content="Optional Stack">
-<meta property="og:description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具
-&amp;lt;!—-more—&amp;gt;
-如何获取图形上下文以下我会介绍三种获取图形上下文的方法： ①利用UIGraphicsBeginImageContextWithOptions来申请图形上下文，利用">
+<meta property="og:description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphics Context">
-<meta name="twitter:description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具
-&amp;lt;!—-more—&amp;gt;
-如何获取图形上下文以下我会介绍三种获取图形上下文的方法： ①利用UIGraphicsBeginImageContextWithOptions来申请图形上下文，利用">
+<meta name="twitter:description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具">
   
     <link rel="alternative" href="/atom.xml" title="Optional Stack" type="application/atom+xml">
   
@@ -193,7 +187,7 @@
   
     <div class="article-meta">
       <a href="/2015/07/08/Graphics Context/" class="article-date">
-  	<time datetime="2015-07-08T07:44:19.000Z" itemprop="datePublished">2015-07-08</time>
+  	<time datetime="2015-07-08T07:45:51.000Z" itemprop="datePublished">2015-07-08</time>
 </a>
     </div>
   
@@ -223,7 +217,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="简介">简介</h1><p>图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具</p>
-<p>&lt;!—-more—&gt;</p>
+<a id="more"></a>
 <h1 id="如何获取图形上下文">如何获取图形上下文</h1><p>以下我会介绍三种获取图形上下文的方法： ①利用<code>UIGraphicsBeginImageContextWithOptions</code>来申请图形上下文，利用<code>UIGraphicsGetImageFromCurrentImageContext</code>来获取在图形上下文中绘制的图形（image），获取图片后释放图形上下文（Graphics Context）<code>UIGraphicsEndImageContext</code>。②当你继承UIView，重写<code>drawRect:</code>方法的时候，Cocoa框架已经为你自动申请了图形上下文，你在<code>drawRect:</code>方法中绘制的图形都会显示在你继承的UIView子类上。③另外如果你想对UIView的图层（layer）进行绘制，那么你可以继承CALayer子类，实现方法<code>drawInContext:</code> 或者你可以使一些对象成为layer的委托者，来实现<code>drawLayer:inContext:</code>方法</p>
 <h1 id="三种方式的联系与区别">三种方式的联系与区别</h1><ul>
 <li>方法一，利用<code>UIGraphicsBeginImageContextWithOptions</code>的方法创建的图形上下文是当前图形上下文,可以利用<code>UIGraphicsGetCurrentImageContext</code>获取到<code>UIGraphicsBeginImageContextWithOptions</code>创建的图形上下文。</li>
