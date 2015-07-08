@@ -187,7 +187,7 @@
   
     <div class="article-meta">
       <a href="/2015/07/08/Graphics Context/" class="article-date">
-  	<time datetime="2015-07-08T07:45:51.000Z" itemprop="datePublished">2015-07-08</time>
+  	<time datetime="2015-07-08T08:14:24.000Z" itemprop="datePublished">2015-07-08</time>
 </a>
     </div>
   
@@ -216,15 +216,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="简介">简介</h1><p>图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具</p>
+        <h2 id="简介">简介</h2><p>图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具</p>
 <a id="more"></a>
-<h1 id="如何获取图形上下文">如何获取图形上下文</h1><p>以下我会介绍三种获取图形上下文的方法： ①利用<code>UIGraphicsBeginImageContextWithOptions</code>来申请图形上下文，利用<code>UIGraphicsGetImageFromCurrentImageContext</code>来获取在图形上下文中绘制的图形（image），获取图片后释放图形上下文（Graphics Context）<code>UIGraphicsEndImageContext</code>。②当你继承UIView，重写<code>drawRect:</code>方法的时候，Cocoa框架已经为你自动申请了图形上下文，你在<code>drawRect:</code>方法中绘制的图形都会显示在你继承的UIView子类上。③另外如果你想对UIView的图层（layer）进行绘制，那么你可以继承CALayer子类，实现方法<code>drawInContext:</code> 或者你可以使一些对象成为layer的委托者，来实现<code>drawLayer:inContext:</code>方法</p>
-<h1 id="三种方式的联系与区别">三种方式的联系与区别</h1><ul>
-<li>方法一，利用<code>UIGraphicsBeginImageContextWithOptions</code>的方法创建的图形上下文是当前图形上下文,可以利用<code>UIGraphicsGetCurrentImageContext</code>获取到<code>UIGraphicsBeginImageContextWithOptions</code>创建的图形上下文。</li>
+<h2 id="如何获取图形上下文">如何获取图形上下文</h2><p>以下我会介绍三种获取图形上下文的方法： ①利用UIGraphicsBeginImageContextWithOptions来申请图形上下文，利用UIGraphicsGetImageFromCurrentImageContext来获取在图形上下文中绘制的图形（image），获取图片后释放图形上下文（Graphics Context）UIGraphicsEndImageContext。②当你继承UIView，重写drawRect:方法的时候，Cocoa框架已经为你自动申请了图形上下文，你在drawRect:方法中绘制的图形都会显示在你继承的UIView子类上。③另外如果你想对UIView的图层（layer）进行绘制，那么你可以继承CALayer子类，实现方法drawInContext:或者你可以使一些对象成为layer的委托者，来实现drawLayer:inContext:方法</p>
+<h2 id="三种方式的联系与区别">三种方式的联系与区别</h2><ul>
+<li>方法一，利用UIGraphicsBeginImageContextWithOptions的方法创建的图形上下文是当前图形上下文,可以利用UIGraphicsGetCurrentImageContext获取到UIGraphicsBeginImageContextWithOptions创建的图形上下文。</li>
 <li>方法二，当drawRect方法被调用的时候，UIView进行绘制的图形上下文早就已经是当前图形上下文了。</li>
-<li>方法三，回调方法<code>drawLayerInContext</code>或者 <code>drawLayer:inContext</code>中的参数<code>context</code>，并不是当前图形上下文。</li>
+<li>方法三，回调方法drawLayerInContext或者drawLayer:inContext中的参数context，并不是当前图形上下文。</li>
 </ul>
-<h1 id="如何在图形上下文上绘制图形">如何在图形上下文上绘制图形</h1><p>这里将介绍两套绘制图形的工具。一套是UIKit中的绘制工具，另外一套就是Core Graphics。</p>
+<h2 id="如何在图形上下文上绘制图形">如何在图形上下文上绘制图形</h2><p>这里将介绍两套绘制图形的工具。一套是UIKit中的绘制工具，另外一套就是Core Graphics。</p>
 <font color="green">UIKit</font>
 
 <p>像UIImage， NSString（绘制文本），UIBeizerPath（绘制形状），UIColor都知道如何绘制自己。这些类提供的功能有限但是使用方便。一般情况下，UIKit足够满足我们所需了。</p>
@@ -233,7 +233,7 @@
 
 <p>这是一个绘图专用的API族，它经常被称为Quartz或者Quartz 2D。Core Graphics是iOS所有绘图功能的基石，贴近于底层，是由C函数构成的底层绘图API。其中UIKit也是在Core Graphics之上的一层封装。</p>
 <p>使用Core Graphics之前需要制定一个用于绘图的图形上的下文（CGContextRef）,这个图形上下文会在绘图函数中都被用到。如果你持有一个图形上下文context参数，那么你就等同于拥有这个而图形上下文，这个上下文或许就是你需要用来绘图的那个，如果你利用UIGraphicsBeginImageContextWithOptions函数来申请图形上下文，那么你可以利用UIGraphicsGetCurrentContext来获取图形上下文的引用。</p>
-<h1 id="绘图实践">绘图实践</h1><p>上文我们介绍了3中获取图形上下文的方法以及2套绘制图形的工具，这样组合起来一共就有6中绘制图形并且获得图形的方法了。以下我将以绘制一个红色轮廓线，蓝色填充的圆为例子，讲解所有绘制图形的组合方法。</p>
+<h2 id="绘图实践">绘图实践</h2><p>上文我们介绍了3中获取图形上下文的方法以及2套绘制图形的工具，这样组合起来一共就有6中绘制图形并且获得图形的方法了。以下我将以绘制一个红色轮廓线，蓝色填充的圆为例子，讲解所有绘制图形的组合方法。</p>
 <ul>
 <li>组合方法1 —— 利用drawRect的图形上下文，使用UIKit来绘制图形。</li>
 </ul>
@@ -261,26 +261,57 @@
 <li>组合方法6 —— 利用UIGraphicsBeginImageContextWithOptions的图形上下文，使用Core Graphics绘制图形</li>
 </ul>
 <pre><code><span class="comment"><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">       <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">   </span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 开启图形上下文，其中三个参数</span></span><br><span class="line">       <span class="comment">// size 所要绘制图形画布的大小</span></span><br><span class="line">       <span class="comment">// opaque 是否为不透明，如果true则绘制出来的图形背景色为黑色</span></span><br><span class="line">       <span class="comment">// scale 缩放比例，如果为0表示在单分辨率和2倍分辨率都可以很好的展现</span></span><br><span class="line">       <span class="type">UIGraphicsBeginImageContextWithOptions</span>(<span class="type">CGSizeMake</span>(<span class="number">100</span>, <span class="number">100</span>), <span class="built_in">false</span>, <span class="number">0</span>)</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// UIGraphicsBeiginImageContextWithOptions 方法开启的图形上下文是当前图形上下文</span></span><br><span class="line">       <span class="comment">// 通过 UIGraphicsGetCurrentContext 获取图形上下文的引用</span></span><br><span class="line">       </span><br><span class="line">       <span class="keyword">let</span> currentContext = <span class="type">UIGraphicsGetCurrentContext</span>()</span><br><span class="line">       </span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 绘制圆形轮廓</span></span><br><span class="line">       <span class="type">CGContextAddEllipseInRect</span>(currentContext, <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>))</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 设置轮廓线宽度</span></span><br><span class="line">       <span class="type">CGContextSetLineWidth</span>(currentContext, <span class="number">2</span>)</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 设置线条颜色</span></span><br><span class="line">       <span class="type">CGContextSetStrokeColorWithColor</span>(currentContext, <span class="type">UIColor</span>.redColor().<span class="type">CGColor</span>)</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 设置填充颜色</span></span><br><span class="line">       <span class="type">CGContextSetFillColorWithColor</span>(currentContext, <span class="type">UIColor</span>.blueColor().<span class="type">CGColor</span>)</span><br><span class="line">       </span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 这里刻画圆形轮廓与填充圆形轮廓</span></span><br><span class="line">       <span class="type">CGContextDrawPath</span>(currentContext, kCGPathFillStroke)</span><br><span class="line">       </span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 绘制完成，从图形上下文中获取绘制的image</span></span><br><span class="line">       <span class="keyword">let</span> ovalImage = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>()</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 结束绘制，释放图形上下文</span></span><br><span class="line">       <span class="type">UIGraphicsEndImageContext</span>()</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 将图片显示在ImageView上</span></span><br><span class="line">       <span class="keyword">let</span> imageView = <span class="type">UIImageView</span>(image: ovalImage)</span><br><span class="line">       imageView.center = <span class="keyword">self</span>.view.center</span><br><span class="line">       <span class="keyword">self</span>.view.addSubview(imageView)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></span>
-</code></pre><h1 id="总结">总结</h1><font color="green">UIKit</font>
+</code></pre><h2 id="总结">总结</h2><font color="green">UIKit</font>
 
 <p>使用UIKit绘制图形，必须在当前图形上下文上（current context）上绘制。而使用UIGraphicsBeginImageContextWithOptions方法，开启的图形上下文便是当前图形上下文。如果在drawerLayer:inContext中使用UIKit，那么需要将context利用UIGraphicsPushContext到图形上下文栈顶，使之成为当前图形上下文。</p>
 <font color="green">Core Graphics</font>
 
 <p>使用Core Graphics绘制图形，必须获得图形上下文引用。如果在drawerLayer:InContext中绘制，那么context参数，便是图形上下文的引用。如果在drawRect方法中或者利用UIGraphicsBeginImageContextWithOptions开启的图形上下文中绘制图形，需要用UIGraphicsGetCurrentContext来获得对context的图形上下文的引用</p>
-<h1 id="扩展绘制方法">扩展绘制方法</h1><table align="center"><br>        <tr><br>            <td align="center">方法名<br>            </td><br>            <td align="center">描述<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextMoveToPoint<br>            </td><br>            <td> 移动画笔到某个顶点作为起始顶点<br>            </td><br>        </tr><br><br><br><br>        <tr><br>            <td> CGContextAddLineToPoint<br>            </td><br>            <td> 从起始顶点画一条直线到某个顶点<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td>CGContextAddEllipseInRect<br>            </td><br>            <td> 画一个矩形的内切圆<br>            </td><br>        </tr><br><br><br><br>        <tr><br>            <td>CGContextSetLineCap<br>            </td><br>            <td> 设置线条终点形状<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td>CGContextSetLineDash<br>            </td><br>            <td> 函数画虚线<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td>CGContextAddRect<br>            </td><br>            <td>增加一个矩形<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextStrokeRect<br>            </td><br>            <td> 刻画矩形轮廓<br>            </td><br>        </tr><br><br>        <tr><br>            <td> CGContextStrokeRectWithWidth<br>            </td><br>            <td> 指定轮廓线宽度刻画矩形轮廓<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td>CGContextStrokeLineSegments<br>            </td><br>            <td> 画直线段<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextStrokeLineSegments<br>            </td><br>            <td>画一曲线 前亮点为中心 中间两点为起始弧度 最后一数据为0则顺时针画 1则逆时针<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td>CGContextAddArc<br>            </td><br>            <td>添加圆弧起始点<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td>CGContextAddArcToPoint<br>            </td><br>            <td>先画两条线从point到第1点，从第1点到第2点的线切割里面的圆<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextSetShadowWithColor<br>            </td><br>            <td>设置阴影<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextSetRGBFillColor<br>            </td><br>            <td> 设置填充颜色RGB<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextSetRGBStrokeColor<br>            </td><br>            <td>画笔颜色设置<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextSetFillColorSpace<br>            </td><br>            <td> 设置填充颜色空间<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextFillRect<br>            </td><br>            <td> 填充一个矩形<br>            </td><br>        </tr><br><br><br><br>        <tr><br>            <td> CGContextSetAlaha<br>            </td><br>            <td> 设置透明度<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextTranslateCTM<br>            </td><br>            <td> 改变画布位置<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextSetLineWidth<br>            </td><br>            <td> 设置线的宽度<br>            </td><br>        </tr><br><br>        <tr><br>            <td>CGContextAddRects<br>            </td><br>            <td>画多个线<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextAddQuadCurveToPoint<br>            </td><br>            <td> 画曲线<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextStrokePath<br>            </td><br>            <td> 绘制轮廓<br>            </td><br>        </tr><br><br>        <tr><br>            <td> CGContextDrawPath<br>            </td><br>            <td> 采用模式绘制图形<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGContextClosePath<br>            </td><br>            <td> 封闭当前线路<br>            </td><br>        </tr><br><br>        <tr><br>            <td> CGContextSetInterpolationQuality<br>            </td><br>            <td> 背景内置颜色质量等级<br>            </td><br>        </tr><br><br><br>        <tr><br>            <td> CGImageCreateWithImageInRect<br>            </td><br>            <td> 从原图片中取小图<br>            </td><br>        </tr><br><br>        <tr><br>            <td> CGContextClosePath<br>            </td><br>            <td> 封闭当前线路<br>            </td><br>        </tr><br><br><br></table>
-
-
-
+<h2 id="其他方法描述">其他方法描述</h2><ul>
+<li>CGContextMoveToPoint 移动画笔到某个顶点作为起始顶点</li>
+<li>CGContextAddLineToPoint 从起始顶点画一条直线到某个顶点</li>
+<li>CGContextAddEllipseInRect 画一个矩形的内切圆</li>
+<li>CGContextSetLineCap 设置线条终点形状</li>
+<li>CGContextSetLineDash 函数画虚线</li>
+<li>CGContextAddRect 增加一个矩形</li>
+<li>CGContextStrokeRect 刻画矩形轮廓</li>
+<li>CGContextStrokeRectWithWidth 指定轮廓线宽度刻画矩形轮廓</li>
+<li>CGContextStrokeLineSegments 画直线段</li>
+<li>CGContextAddArc 添加圆弧起始点</li>
+<li>CGContextAddArcToPoint 先画两条线从point到第1点，从第1点到第2点的线切割里面的圆    </li>
+<li>CGContextSetShadowWithColor 设置阴影</li>
+<li>CGContextSetRGBFillColor 设置填充颜色RGB</li>
+<li>CGContextSetRGBStrokeColor 设置画笔颜色</li>
+<li>CGContextSetFillColorSpace 设置填充颜色空间</li>
+<li>CGContextFillRect 填充一个矩形</li>
+<li>CGContextSetAlpha 设置透明度</li>
+<li>CGContextTranslateCTM 改变画布位置</li>
+<li>CGContextSetLineWidth 设置画笔粗细</li>
+<li>CGContextAddRects 画多个矩形</li>
+<li>CGContextAddQuadCurveToPoint 画曲线</li>
+<li>CGContextStrokePath 根据路径刻画</li>
+<li>CGContextDrawPath 采用模式绘制图形</li>
+<li>CGContextClosePath 封闭当前线路</li>
+<li>CGContextSetInterpolationQuality 背景内置颜色质量等级</li>
+<li>CGImageCreateWithImageInRect 从原图片中取小图</li>
+<li>CGContextClosePath 封闭当前线路</li>
+</ul>
 <ul>
 <li>字符串的 写入可用  NSString本身的画图方法</li>
 </ul>
 <pre><code><span class="comment"><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drawInRect(rect: <span class="type">CGRect</span>, withAttributes attrs: [<span class="type">NSObject</span> : <span class="type">AnyObject</span>]?)</span><br><span class="line">drawAtPoint(point: <span class="type">CGPoint</span>, withAttributes attrs: [<span class="type">NSObject</span> : <span class="type">AnyObject</span>]?)</span><br></pre></td></tr></table></figure></span>
 </code></pre><ul>
-<li><p>对图片放大缩小的功能就是慢了点</p>
-  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">// newSize 放大/缩小后的图片大小</span></span><br><span class="line">	<span class="type">UIGraphicsBeginImageContext</span>(newSize)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">let</span> newImage = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>()</span><br><span class="line"></span><br><span class="line">  <span class="type">UIGraphicsEndImageContext</span>()</span><br><span class="line">		</span><br><span class="line">	``` </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">- <span class="type">CGColorGetComponents</span>（） 返回颜色的各个直 以及透明度 可用只读const float 来接收  是个数组</span><br><span class="line"></span><br><span class="line">- 画图片</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	```<span class="type">Swift</span></span><br><span class="line">	<span class="keyword">let</span> image＝<span class="type">CGImageRetain</span>(img.<span class="type">CGImage</span>)</span><br><span class="line"></span><br><span class="line">    <span class="type">CGContextDrawImage</span>(context, <span class="type">CGRectMake</span>(<span class="number">10.0</span>, height - <span class="number">100.0</span>, <span class="number">90.0</span>, <span class="number">90.0</span>), image);</span><br></pre></td></tr></table></figure>
+<li>对图片放大缩小的功能就是慢了点</li>
+</ul>
+<pre><code><span class="comment"><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// newSize 放大/缩小后的图片大小</span></span><br><span class="line"><span class="type">UIGraphicsBeginImageContext</span>(newSize)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> newImage = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>()</span><br><span class="line"></span><br><span class="line"><span class="type">UIGraphicsEndImageContext</span>()</span><br></pre></td></tr></table></figure></span>
+</code></pre><ul>
+<li><p>CGColorGetComponents（） 返回颜色的各个直 以及透明度 可用只读const float 来接收  是个数组</p>
+</li>
+<li><p>画图片</p>
 </li>
 </ul>
-<ul>
+<pre><code><span class="comment"><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> image＝<span class="type">CGImageRetain</span>(img.<span class="type">CGImage</span>)</span><br><span class="line"></span><br><span class="line"><span class="type">CGContextDrawImage</span>(context, <span class="type">CGRectMake</span>(<span class="number">10.0</span>, height - <span class="number">100.0</span>, <span class="number">90.0</span>, <span class="number">90.0</span>), image);</span><br></pre></td></tr></table></figure></span>
+</code></pre><ul>
 <li><p>实现逐变颜色填充方法 CGContextClip(context);</p>
   <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rgb = <span class="type">CGColorSpaceCreateDeviceRGB</span>()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">let</span> colors: [<span class="type">CGFloat</span>] =</span><br><span class="line"></span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">       <span class="number">204.0</span> / <span class="number">255.0</span>, <span class="number">224.0</span> / <span class="number">255.0</span>, <span class="number">244.0</span> / <span class="number">255.0</span>, <span class="number">1.00</span>,</span><br><span class="line"></span><br><span class="line">       <span class="number">29.0</span> / <span class="number">255.0</span>, <span class="number">156.0</span> / <span class="number">255.0</span>, <span class="number">215.0</span> / <span class="number">255.0</span>, <span class="number">1.00</span>,</span><br><span class="line"></span><br><span class="line">       <span class="number">0.0</span> / <span class="number">255.0</span>,  <span class="number">50.0</span> / <span class="number">255.0</span>, <span class="number">126.0</span> / <span class="number">255.0</span>, <span class="number">1.00</span>,</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">let</span> gradient = <span class="type">CGGradientCreateWithColorComponents</span>(rgb, colors, <span class="type">NULL</span>, <span class="built_in">sizeof</span>(colors)/(<span class="built_in">sizeof</span>(colors[<span class="number">0</span>])*<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">   <span class="type">CGColorSpaceRelease</span>(rgb)  </span><br><span class="line"></span><br><span class="line">   <span class="type">CGContextDrawLinearGradient</span>(context, gradient,<span class="type">CGPointMake</span>(<span class="number">0.0</span>,<span class="number">0.0</span>) ,<span class="type">CGPointMake</span>(<span class="number">0.0</span>,<span class="keyword">self</span>.frame.size.height), kCGGradientDrawsBeforeStartLocation)</span><br></pre></td></tr></table></figure>
 </li>
@@ -300,66 +331,7 @@
 </ol>
 </li>
 </ul>
-<pre><code><span class="tag">&lt;<span class="title">table</span> <span class="attribute">align</span>=<span class="value">'center'</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span> <span class="attribute">align</span>=<span class="value">'center'</span>&gt;</span>方法名
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span> <span class="attribute">align</span>=<span class="value">'center'</span>&gt;</span>描述
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
 
-
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span> &gt;</span> CGContextEOFillPath
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span> 使用奇偶规则填充当前路径
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-
-
-
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>CGContextFillPath
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>使用非零绕数规则填充当前路径
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-
-
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>CGContextFillRect
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>填充指定的矩形
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-
-
-
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>CGContextFillRects
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>填充指定的一些矩形
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-
-
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>CGContextFillEllipseInRect
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>填充指定矩形中的椭圆
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-
-
-    <span class="tag">&lt;<span class="title">tr</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>CGContextDrawPath
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">td</span>&gt;</span>两个参数决定填充规则，kCGPathFill表示用非零绕数规则，kCGPathEOFill表示用奇偶规则，kCGPathFillStroke表示填充，kCGPathEOFillStroke表示描线，不是填充
-        <span class="tag">&lt;/<span class="title">td</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
-
-<span class="tag">&lt;/<span class="title">table</span>&gt;</span>
-</code></pre>
       
     </div>
     
