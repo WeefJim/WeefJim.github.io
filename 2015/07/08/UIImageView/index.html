@@ -8,7 +8,7 @@
   <meta name="description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UIImageView">
-<meta property="og:url" content="http://www.jinyejun.com/2015/07/06/UIImageView/index.html">
+<meta property="og:url" content="http://www.jinyejun.com/2015/07/08/UIImageView/index.html">
 <meta property="og:site_name" content="Optional Stack">
 <meta property="og:description" content="IntroductionUIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。">
 <meta property="og:image" content="http://i1.tietuku.com/92b3ed215e4bfe7a.png">
@@ -193,8 +193,8 @@
       <div class="body-wrap"><article id="post-UIImageView" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/07/06/UIImageView/" class="article-date">
-  	<time datetime="2015-07-06T11:23:17.000Z" itemprop="datePublished">2015-07-06</time>
+      <a href="/2015/07/08/UIImageView/" class="article-date">
+  	<time datetime="2015-07-08T07:42:56.000Z" itemprop="datePublished">2015-07-08</time>
 </a>
     </div>
   
@@ -227,7 +227,7 @@
 <h2 id="Frame">Frame</h2><p>UIImageView的与普通UIView不同的一点是如果不给UIImageView指定frame或者在autoLayout下给予绝对高度和绝对宽度，那么它的frame.size是根据image来计算的。这个属性叫做intrinsicContentSize，就是固有内容大小。如果用一个矩形能容纳下image，这么这个矩形的大小就是UIImageView的frame.size。</p>
 <h2 id="Image_&amp;_HighlightedImage">Image &amp; HighlightedImage</h2><p>UIImageView对象中有两个属性。一个是image，它是普通状态下所显示的那张图片，另一个是highlightedImage，它是高亮状态下所显示的图片。<strong>在普通情况下，点击UIImageView，并不是它高亮状态。它的高亮状态在一些特殊情况下，比如说UIImageView放在table view cell里面，点击table view cell的时候，则UIImageView会变成高亮状态</strong></p>
 <h2 id="BackgroundColor_&amp;_Alpha">BackgroundColor &amp; Alpha</h2><p>因为UIImageView也是一个UIView，所以它也有backgroundColor，alpha这些属性。如果image的有些区域是透明的(transparency)，那么UIImageView也会按照透明来显示。因此，UIImageView会显示各种不同形状的图片。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> earch = <span class="type">UIImage</span>(named: <span class="string">"earch"</span>)!</span><br><span class="line"><span class="keyword">let</span> imageView = <span class="type">UIImageView</span>(image: earch)</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> earth = <span class="type">UIImage</span>(named: <span class="string">"earth"</span>)!</span><br><span class="line"><span class="keyword">let</span> imageView = <span class="type">UIImageView</span>(image: earth)</span><br></pre></td></tr></table></figure>
 <p><img src="http://i1.tietuku.com/92b3ed215e4bfe7a.png" alt="无背景地球"></p>
 <p>但是UIImageView是矩形形状的。如果给UIImageView的backgrounColor属性赋值红色.</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.backgroundColor = <span class="type">UIColor</span>.redColor()</span><br></pre></td></tr></table></figure>
@@ -264,7 +264,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 超出边界不剪裁</span></span><br><span class="line">imageView.clipsToBounds = <span class="built_in">false</span></span><br></pre></td></tr></table></figure>
 <p><img src="http://i1.tietuku.com/0389670bf48c2d49.png" alt="不剪裁显示"></p>
 <h2 id="Resizable_Images">Resizable Images</h2><p>UIImage对象可以使用resizableImageWithCapInsets:resizingMode:方法来生成一个resizable image对象。capInsets参数，是一个UIEdgeInsets结构体，由top，left，bottom，right四个CGFloat值组成。他们代表的是在image中距离上边界，左边界，下边界，右边界各个距离，在内部画一个矩形，矩形之内为圈定的内容。resizingMode参数，是一个UIImageResizingMode枚举类型的参数。有两个值，一个是.Tile，即平铺。另一个.Stretch，即拉伸。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 平铺</span></span><br><span class="line"><span class="keyword">let</span> imageViewTile = <span class="type">UIImageView</span>()</span><br><span class="line">imageViewTile.frame = <span class="type">CGRectMake</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">200</span>, <span class="number">100</span>)</span><br><span class="line"><span class="keyword">let</span> earchTile = earch.resizableImageWithCapInsets(<span class="type">UIEdgeInsets</span>(top: earch.size.width/<span class="number">4.0</span>, <span class="keyword">left</span>: earch.size.width/<span class="number">4.0</span>, bottom: earch.size.width/<span class="number">4.0</span>, <span class="keyword">right</span>: earch.size.width/<span class="number">4.0</span>), resizingMode: .<span class="type">Tile</span>)</span><br><span class="line">imageViewTile.image = earchTile</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewTile)</span><br><span class="line">        </span><br><span class="line"><span class="comment">// 拉伸</span></span><br><span class="line"><span class="keyword">let</span> imageViewStretch = <span class="type">UIImageView</span>()</span><br><span class="line">imageViewStretch.frame = <span class="type">CGRectMake</span>(<span class="number">10</span>, <span class="number">120</span>, <span class="number">200</span>, <span class="number">100</span>)</span><br><span class="line"><span class="keyword">let</span> earchStretch = earch.resizableImageWithCapInsets(<span class="type">UIEdgeInsets</span>(top: earch.size.width/<span class="number">4.0</span>, <span class="keyword">left</span>: earch.size.width/<span class="number">4.0</span>, bottom: earch.size.width/<span class="number">4.0</span>, <span class="keyword">right</span>: earch.size.width/<span class="number">4.0</span>), resizingMode: .<span class="type">Stretch</span>)</span><br><span class="line">imageViewStretch.image = earchStretch</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewStretch)</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 平铺</span></span><br><span class="line"><span class="keyword">let</span> imageViewTile = <span class="type">UIImageView</span>()</span><br><span class="line">imageViewTile.frame = <span class="type">CGRectMake</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">200</span>, <span class="number">100</span>)</span><br><span class="line"><span class="keyword">let</span> earth = earth.resizableImageWithCapInsets(<span class="type">UIEdgeInsets</span>(top: earth.size.width/<span class="number">4.0</span>, <span class="keyword">left</span>: earth.size.width/<span class="number">4.0</span>, bottom: earth.size.width/<span class="number">4.0</span>, <span class="keyword">right</span>: earth.size.width/<span class="number">4.0</span>), resizingMode: .<span class="type">Tile</span>)</span><br><span class="line">imageViewTile.image = earthTile</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewTile)</span><br><span class="line">        </span><br><span class="line"><span class="comment">// 拉伸</span></span><br><span class="line"><span class="keyword">let</span> imageViewStretch = <span class="type">UIImageView</span>()</span><br><span class="line">imageViewStretch.frame = <span class="type">CGRectMake</span>(<span class="number">10</span>, <span class="number">120</span>, <span class="number">200</span>, <span class="number">100</span>)</span><br><span class="line"><span class="keyword">let</span> earthStretch = earth.resizableImageWithCapInsets(<span class="type">UIEdgeInsets</span>(top: earth.size.width/<span class="number">4.0</span>, <span class="keyword">left</span>: earth.size.width/<span class="number">4.0</span>, bottom: earth.size.width/<span class="number">4.0</span>, <span class="keyword">right</span>: earth.size.width/<span class="number">4.0</span>), resizingMode: .<span class="type">Stretch</span>)</span><br><span class="line">imageViewStretch.image = earthStretch</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(imageViewStretch)</span><br></pre></td></tr></table></figure>
 <p><img src="http://i1.tietuku.com/003095999682d8e8.png" alt="平铺和伸缩效果对比"></p>
 <h2 id="Image_Rendernig_Mode">Image Rendernig Mode</h2><p>在iOS中有许多地方，比如说tab bar, navigation bar处。系统把image看成一种透明蒙版(transparency mask)，或者说是一种模板(template)。系统并不区别image的各种颜色，只有着色和透明之分。利用bar的tintColor给image原本有着色部分着色。而透明的部分不着色。这样的image可以利用UIImage的<code>imageWithRenderingMode:</code>方法来产生。其构造参数为UIImageRenderingMode枚举类型，有三个枚举值。</p>
 <ul>
@@ -286,6 +286,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2015/07/08/Graphics Context/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Graphics Context
+        
+      </div>
+    </a>
   
   
     <a href="/2015/04/30/swift_singleton/" id="article-nav-older" class="article-nav-link-wrap">
@@ -318,7 +327,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="UIImageView" data-title="UIImageView" data-url="http://www.jinyejun.com/2015/07/06/UIImageView/"></div>
+	<div class="ds-thread" data-thread-key="UIImageView" data-title="UIImageView" data-url="http://www.jinyejun.com/2015/07/08/UIImageView/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Optional Stack</title>
+  <title>Graphics Context | Optional Stack</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Optional Stack">
-<meta property="og:url" content="http://www.jinyejun.com/index.html">
+  <meta name="description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具
+&amp;lt;!—-more—&amp;gt;
+如何获取图形上下文以下我会介绍三种获取图形上下文的方法： ①利用UIGraphicsBeginImageContextWithOptions来申请图形上下文，利用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Graphics Context">
+<meta property="og:url" content="http://www.jinyejun.com/2015/07/08/Graphics Context/index.html">
 <meta property="og:site_name" content="Optional Stack">
-<meta property="og:description">
+<meta property="og:description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具
+&amp;lt;!—-more—&amp;gt;
+如何获取图形上下文以下我会介绍三种获取图形上下文的方法： ①利用UIGraphicsBeginImageContextWithOptions来申请图形上下文，利用">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Optional Stack">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Graphics Context">
+<meta name="twitter:description" content="简介图形上下文（Graphics Context），就是你向系统申请提供给你绘制图形的地方。iOS开发中有多种方式来获取图形上下文。以下我将介绍3种获取图形上下文的方法和2套在图形上下文上绘制图形的工具
+&amp;lt;!—-more—&amp;gt;
+如何获取图形上下文以下我会介绍三种获取图形上下文的方法： ①利用UIGraphicsBeginImageContextWithOptions来申请图形上下文，利用">
   
     <link rel="alternative" href="/atom.xml" title="Optional Stack" type="application/atom+xml">
   
@@ -183,9 +189,7 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-Graphics Context" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Graphics Context" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2015/07/08/Graphics Context/" class="article-date">
@@ -201,12 +205,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/08/Graphics Context/">Graphics Context</a>
+    <h1 class="article-title" itemprop="name">
+      Graphics Context
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -358,233 +369,61 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/07/08/UIImageView/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">UIImageView</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
 
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
-
-  
-    <article id="post-UIImageView" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/08/UIImageView/" class="article-date">
-  	<time datetime="2015-07-08T07:42:56.000Z" itemprop="datePublished">2015-07-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/08/UIImageView/">UIImageView</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Introduction">Introduction</h2><p>UIImageView主要是用来显示UIImage的view，也就是说它也是继承UIView的。UIImage表示图片这个对象，如果要显示出来还是得借助视图UIImageView来显示，通常给UIImageView的image属性设置为你想要显示的那个UIImage。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/07/08/UIImageView/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Graphics Context" data-title="Graphics Context" data-url="http://www.jinyejun.com/2015/07/08/Graphics Context/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
-
-
-
-  
-    <article id="post-swift_singleton" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/30/swift_singleton/" class="article-date">
-  	<time datetime="2015-04-30T11:46:22.000Z" itemprop="datePublished">2015-04-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/30/swift_singleton/">Swift Singleton Design Pattern</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言(Preface)">前言(Preface)</h2><p>Swift发展至今经历了3个版本了，从Swift1.0到Swift1.1再到现在的Swift1.2。语法以及API多多少少有些改变，而这些改变也影响了某些设计模式在Swift中的具体实现。今天我主要来讨论下Swift1.1和Swift1.2单例模式的实现。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/04/30/swift_singleton/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-A Swift Tour" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/30/A Swift Tour/" class="article-date">
-  	<time datetime="2015-04-30T11:29:30.000Z" itemprop="datePublished">2015-04-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/30/A Swift Tour/">A Swift Tour</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Swift是一门汲取了C与Objective-C的精华，用来开发iOS和OS X应用的新的编程语言（由苹果公司于2014年6月7日发布）。Swift摆脱了C语言兼容性的约束，采用安全的编程模式并且添加了现代化的特性，让编程更加容易，灵活和有趣。Swift诞生伊始，在成熟而又深受欢迎的Cocoa、Cocoa Touch框架的支持下，可以重新定位软件开发工作。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/04/30/A Swift Tour/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Swift 构造器探究" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/30/Swift 构造器探究/" class="article-date">
-  	<time datetime="2015-04-30T11:29:20.000Z" itemprop="datePublished">2015-04-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/30/Swift 构造器探究/">Swift 构造器探究</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>其实在其他语言中，比如说Java对于属性的初始化没有严格的要求。甚至在Model层只有对应属性的get,set访问器。而在Swift中无论是对于结构体(Structure)还是类(Class)，如果其中存在存储属性(stored property)，那么必须在合适的地方给它赋初始值，也就是初始化。不能让它们成为不确定的状态，即没有初始化。关于初始化，Swift提供了两种方式。一种是属性定义的时候初始化，也就是赋默认值。 第二种是在构造器中初始化。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/04/30/Swift 构造器探究/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-  
 </div>
       <footer id="footer">
   <div class="outer">
